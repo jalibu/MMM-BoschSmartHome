@@ -1,4 +1,4 @@
-# MMM-BSH - **J**ust **a**nother **S**tock **T**icker (Beta)
+# MMM-BSH - Bosch Smart Home Module (Beta)
 This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).  
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker)
 
