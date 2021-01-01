@@ -1,43 +1,7 @@
 var NodeHelper = require("node_helper");
 var fs = require("fs");
 var BSMB = require("bosch-smart-home-bridge");
-const thermostats = [
-  {
-    name: "Balkon",
-    id: "hdm:HomeMaticIP:3014F711A000005BB85C566C",
-    room: "Wohnzimmer",
-    temperature: null,
-    position: null
-  },
-  {
-    name: "Sofa",
-    id: "hdm:HomeMaticIP:3014F711A000005BB85C4A2A",
-    room: "Wohnzimmer",
-    temperature: null,
-    position: null
-  },
-  {
-    name: "Bad",
-    id: "hdm:HomeMaticIP:3014F711A000005BB85C5977",
-    room: "Badezimmer",
-    temperature: null,
-    position: null
-  },
-  {
-    name: "Arbeitszimmer",
-    id: "hdm:HomeMaticIP:3014F711A000005BB85C5680",
-    room: "Arbeitszimmer",
-    temperature: null,
-    position: null
-  },
-  {
-    name: "Schlafzimmer",
-    id: "hdm:HomeMaticIP:3014F711A000005BB85C574A",
-    room: "Schlafzimmer",
-    temperature: null,
-    position: null
-  }
-];
+
 module.exports = NodeHelper.create({
   start: function () {
     console.log(`${this.name} helper method started...`);
@@ -85,9 +49,7 @@ module.exports = NodeHelper.create({
       .then(({ parsedResponse }) => {
         parsedResponse.forEach((servicesResponse) => {
           rooms.forEach((room) => {
-            const device = room.devices.find(
-              (device) => device.id === servicesResponse.deviceId
-            );
+            const device = room.devices.find((device) => device.id === servicesResponse.deviceId);
             if (device) {
               device.services.push(servicesResponse);
             }
@@ -106,5 +68,5 @@ module.exports = NodeHelper.create({
     } else {
       console.warn(`${notification} is invalid notification`);
     }
-  }
+  },
 });

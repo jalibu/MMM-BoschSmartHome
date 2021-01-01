@@ -5,7 +5,7 @@ Module.register("MMM-BSH", {
   defaults: {
     debug: false,
     host: "192.168.0.150",
-    refreshIntervalInSeconds: 60
+    refreshIntervalInSeconds: 60,
   },
 
   getStyles: function () {
@@ -15,15 +15,14 @@ Module.register("MMM-BSH", {
   getTranslations: function () {
     return {
       en: "translations/en.json",
-      de: "translations/de.json"
+      de: "translations/de.json",
     };
   },
 
-  /*
   getHeader: function () {
-    return "Temperaturen";
+    // return "Temperaturen";
   },
-*/
+
   start: function () {
     this.rooms = [];
     this.getStatus();
@@ -45,42 +44,64 @@ Module.register("MMM-BSH", {
     }
   },
 
+  getBadges: function (shutterContactDevices, climateControlService) {
+    let badges = "";
+    let hasOpenContacts = false;
+    shutterContactDevices.forEach((shutterContactDevice) => {
+      const shutterContactService = shutterContactDevice.services.find((service) => service.id === "ShutterContact");
+      hasOpenContacts = hasOpenContacts || shutterContactService.state.value !== "CLOSED";
+    });
+    if (!hasOpenContacts) {
+      badges += '<span class="bsh-room-badge"><i class="fas fa-wind"></i></span>';
+    }
+    badges += `<span class="bsh-room-badge"><i class="fas ${
+      climateControlService.state.operationMode === "MANUAL" ? "fa-user-cog" : "fa-clock"
+    }"></i></span>`;
+
+    return badges;
+  },
+
   getDom: function () {
     let app = document.createElement("div");
     app.className = "bsh-wrapper";
     let markup = "";
     this.rooms.forEach((room) => {
-      let roomMarkup = "<div class='bsh-room-wrapper'>";
-      let shutterContactDevices = room.devices.filter(
-        (device) => device.deviceModel === "SWD"
+      const climateControlDevice = room.devices.find((device) => device.deviceModel === "ROOM_CLIMATE_CONTROL");
+
+      const shutterContactDevices = room.devices.filter((device) => device.deviceModel === "SWD");
+
+      const climateControlService = climateControlDevice.services.find(
+        (service) => service.id === "RoomClimateControl"
       );
 
-      let hasOpenContacts = false;
-      shutterContactDevices.forEach((shutterContactDevice) => {
-        const shutterContactService = shutterContactDevice.services.find(
-          (service) => service.id === "ShutterContact"
-        );
-        hasOpenContacts =
-          hasOpenContacts || shutterContactService.state.value !== "CLOSED";
-      });
-      roomMarkup += `<div class="bsh-room-title"><span class="bsh-room-icon"><i class="fas ${this.getIcon(
-        room.iconId
-      )}"></i></span>${room.name} ${
-        hasOpenContacts ? '<i class="fas fa-wind"></i>' : ""
-      }</div>`;
+      let operationMode;
+      if (climateControlService.state.operationMode === "AUTOMATIC") {
+        operationMode =
+          climateControlService.state.setpointTemperature ===
+          climateControlService.state.setpointTemperatureForLevelComfort
+            ? "bsh-comfort"
+            : "bsh-eco";
+      } else {
+        operationMode = "bsh-manual";
+      }
+
+      let roomMarkup = `<div class='bsh-room-wrapper ${operationMode}'>`;
+
+      roomMarkup += `<div class="bsh-room-title">
+			  <span class="bsh-room-icon">
+			  <i class="fas ${this.getIcon(room.iconId)}"></i></span>
+			  <span class="bsh-room-name">${room.name}</span>
+			  <span>${this.getBadges(shutterContactDevices, climateControlService)}</span>
+			  </div>`;
 
       roomMarkup += '<div class="bsh-temperatures">';
-      let temperatureLevelDevices = room.devices.filter(
-        (device) => device.deviceModel === "TRV"
-      );
+      let temperatureLevelDevices = room.devices.filter((device) => device.deviceModel === "TRV");
 
       temperatureLevelDevices.forEach((temperatureLevelDevice) => {
         const temperatureLevelService = temperatureLevelDevice.services.find(
           (service) => service.id === "TemperatureLevel"
         );
-        const valveTappetService = temperatureLevelDevice.services.find(
-          (service) => service.id === "ValveTappet"
-        );
+        const valveTappetService = temperatureLevelDevice.services.find((service) => service.id === "ValveTappet");
 
         let heaterIcon = "";
         if (valveTappetService.state.position > 5) {
@@ -89,27 +110,11 @@ Module.register("MMM-BSH", {
         if (valveTappetService.state.position > 15) {
           heaterIcon = `<i class="fas fa-thermometer-three-quarters"></i>`;
         }
-        console.log(
-          "valveTappetService.state.position ",
-          valveTappetService.state.position
-        );
+        console.log("valveTappetService.state.position ", valveTappetService.state.position);
         roomMarkup += `<div class="bsh-temperature bsh-temperatures-messured">${temperatureLevelService.state.temperature}°C${heaterIcon}</div>`;
       });
 
-      let climateControlDevice = room.devices.find(
-        (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
-      );
-      let climateControlService = climateControlDevice.services.find(
-        (service) => service.id === "RoomClimateControl"
-      );
-
-      roomMarkup += `<div class="bsh-temperature bsh-temperatures-target">${
-        climateControlService.state.setpointTemperature
-      }°C<i class="fas ${
-        climateControlService.state.operationMode === "MANUAL"
-          ? "fa-user-cog"
-          : "fa-clock"
-      }"></i></div>`;
+      roomMarkup += `<div class="bsh-temperature bsh-temperatures-target">${climateControlService.state.setpointTemperature}°C</div>`;
       roomMarkup += `</div>`;
       roomMarkup += "</div>";
       markup += roomMarkup;
@@ -135,5 +140,5 @@ Module.register("MMM-BSH", {
       console.log(this.rooms);
       this.updateDom();
     }
-  }
+  },
 });
