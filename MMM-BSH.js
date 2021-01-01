@@ -51,7 +51,7 @@ Module.register("MMM-BSH", {
       const shutterContactService = shutterContactDevice.services.find((service) => service.id === "ShutterContact");
       hasOpenContacts = hasOpenContacts || shutterContactService.state.value !== "CLOSED";
     });
-    if (!hasOpenContacts) {
+    if (hasOpenContacts) {
       badges += '<span class="bsh-room-badge"><i class="fas fa-wind"></i></span>';
     }
     badges += `<span class="bsh-room-badge"><i class="fas ${
