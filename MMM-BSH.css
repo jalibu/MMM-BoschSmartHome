@@ -57,13 +57,14 @@
 }
 
 .bsh-temperatures-target {
+  background-color: #888;
   min-width: 3em;
   text-align: center;
 }
 
 .bsh-comfort .bsh-temperatures-target {
   color: #fff;
-  background-color: red;
+  background-color: #dc4c4c;
 }
 
 .bsh-eco .bsh-temperatures-target {
