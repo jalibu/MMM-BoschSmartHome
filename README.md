@@ -1,6 +1,6 @@
-# MMM-BSH - Bosch Smart Home Module (Beta)
-This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).  
-Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker)
+# MMM-BoschSmartHome (Beta)
+A client interface for the Bosch Smart Home System [Magic Mirror](https://magicmirror.builders/).  
+Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/)
 
 
 ## Features
@@ -8,7 +8,7 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 
 ## Installing the Module
 Navigate to the MagicMirror subfolder "modules" and execute the following command  
-`git clone https://github.com/jalibu/MMM-BSH.git`
+`git clone https://github.com/jalibu/MMM-BoschSmartHome.git`
 
 ### Sample
 ```javascript
