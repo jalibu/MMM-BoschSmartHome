@@ -1,3 +1,5 @@
 {
-  "depotGrowth": "Depot growth:"
+  "error": "Error",
+  "key_err_cert": "Did not find valid certificate",
+  "key_err_loading": "Failed to process data"
 }

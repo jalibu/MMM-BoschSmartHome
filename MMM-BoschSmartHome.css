@@ -7,6 +7,17 @@
   margin-top: -0.5em;
   text-align: left;
 }
+.bsh-err {
+  color: #111;
+  font-size: 0.7rem;
+}
+.bsh-err i {
+  margin-right: 5px;
+}
+.bsh-err h3 {
+  margin-bottom: -2em;
+}
+
 .bsh-room-title {
   display: flex;
   align-content: stretch;

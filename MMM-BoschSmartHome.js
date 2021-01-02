@@ -25,6 +25,7 @@ Module.register("MMM-BoschSmartHome", {
 
   start: function () {
     this.rooms = [];
+    this.err = null;
     this.getStatus();
     this.scheduleUpdate();
   },
@@ -71,6 +72,11 @@ Module.register("MMM-BoschSmartHome", {
     let app = document.createElement("div");
     app.className = "bsh-wrapper";
     let markup = "";
+    if (this.err) {
+      markup += `<div class="bsh-err"><h3><i class="fas fa-exclamation"></i>Fehler</h3>${this.translate(
+        this.err.key
+      )}</div>`;
+    }
     this.rooms.forEach((room) => {
       const climateControlDevice = room.devices.find(
         (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
@@ -133,6 +139,7 @@ Module.register("MMM-BoschSmartHome", {
       markup += roomMarkup;
     });
     app.innerHTML = markup;
+
     return app;
   },
 
@@ -148,8 +155,13 @@ Module.register("MMM-BoschSmartHome", {
   },
 
   socketNotificationReceived: function (notification, payload) {
+    console.log(notification, payload);
     if (notification === "STATUS_RESULT") {
+      this.err = null;
       this.rooms = payload;
+      this.updateDom();
+    } else if (notification === "ERROR") {
+      this.err = payload;
       this.updateDom();
     }
   }
