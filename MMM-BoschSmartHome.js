@@ -8,29 +8,30 @@ Module.register("MMM-BoschSmartHome", {
     refreshIntervalInSeconds: 60
   },
 
-  getStyles: function () {
+  getStyles() {
     return ["MMM-BoschSmartHome.css"];
   },
 
-  getTranslations: function () {
+  getTranslations() {
     return {
       en: "translations/en.json",
       de: "translations/de.json"
     };
   },
 
-  getHeader: function () {
+  getHeader() {
     // return "Temperaturen";
   },
 
-  start: function () {
+  start() {
     this.rooms = [];
     this.err = null;
     this.getStatus();
     this.scheduleUpdate();
+    this.updateDom();
   },
 
-  getIcon: function (inputIcon) {
+  getIcon(inputIcon) {
     switch (inputIcon) {
       case "icon_room_bathroom":
         return "fa-bath";
@@ -45,7 +46,7 @@ Module.register("MMM-BoschSmartHome", {
     }
   },
 
-  getBadges: function (shutterContactDevices, climateControlService) {
+  getBadges(shutterContactDevices, climateControlService) {
     let badges = "";
     let hasOpenContacts = false;
     shutterContactDevices.forEach((shutterContactDevice) => {
@@ -68,7 +69,7 @@ Module.register("MMM-BoschSmartHome", {
     return badges;
   },
 
-  getDom: function () {
+  getDom() {
     let app = document.createElement("div");
     app.className = "bsh-wrapper";
     let markup = "";
@@ -76,6 +77,10 @@ Module.register("MMM-BoschSmartHome", {
       markup += `<div class="bsh-err"><h3><i class="fas fa-exclamation"></i>Fehler</h3>${this.translate(
         this.err.key
       )}</div>`;
+    }
+
+    if (!this.rooms || this.rooms.length < 1) {
+      markup += `<div>${this.translate("loading")}</div>`;
     }
     this.rooms.forEach((room) => {
       const climateControlDevice = room.devices.find(
@@ -143,19 +148,18 @@ Module.register("MMM-BoschSmartHome", {
     return app;
   },
 
-  scheduleUpdate: function () {
+  scheduleUpdate() {
     const self = this;
     setInterval(function () {
       self.getStatus();
     }, this.config.refreshIntervalInSeconds * 1000);
   },
 
-  getStatus: function () {
+  getStatus() {
     this.sendSocketNotification("GET_STATUS", this.config);
   },
 
-  socketNotificationReceived: function (notification, payload) {
-    console.log(notification, payload);
+  socketNotificationReceived(notification, payload) {
     if (notification === "STATUS_RESULT") {
       this.err = null;
       this.rooms = payload;
