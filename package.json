@@ -1,21 +1,18 @@
 {
-  "name": "mmm-bsh",
+  "name": "mmm-bosch-smart-home",
   "version": "1.0.0",
-  "description": "A Bosch Smart Home module for [Magic Mirror](https://magicmirror.builders/).   Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/)",
-  "main": "MMM-BSH.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "A Bosch Smart Home module for [Magic Mirror](https://magicmirror.builders/).",
+  "main": "MMM-BoschSmartHome.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jalibu/MMM-BSH.git"
+    "url": "git+https://github.com/jalibu/MMM-BoschSmartHome.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jan.Litzenburger@gmail.com",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jalibu/MMM-BSH/issues"
+    "url": "https://github.com/jalibu/MMM-BoschSmartHome/issues"
   },
-  "homepage": "https://github.com/jalibu/MMM-BSH#readme",
+  "homepage": "https://github.com/jalibu/MMM-BoschSmartHome#readme",
   "dependencies": {
     "bosch-smart-home-bridge": "^0.2.14"
   }

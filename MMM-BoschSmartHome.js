@@ -1,21 +1,21 @@
 "use strict";
 
-Module.register("MMM-BSH", {
+Module.register("MMM-BoschSmartHome", {
   result: {},
   defaults: {
     debug: false,
     host: "192.168.0.150",
-    refreshIntervalInSeconds: 60,
+    refreshIntervalInSeconds: 60
   },
 
   getStyles: function () {
-    return ["MMM-BSH.css"];
+    return ["MMM-BoschSmartHome.css"];
   },
 
   getTranslations: function () {
     return {
       en: "translations/en.json",
-      de: "translations/de.json",
+      de: "translations/de.json"
     };
   },
 
@@ -48,14 +48,20 @@ Module.register("MMM-BSH", {
     let badges = "";
     let hasOpenContacts = false;
     shutterContactDevices.forEach((shutterContactDevice) => {
-      const shutterContactService = shutterContactDevice.services.find((service) => service.id === "ShutterContact");
-      hasOpenContacts = hasOpenContacts || shutterContactService.state.value !== "CLOSED";
+      const shutterContactService = shutterContactDevice.services.find(
+        (service) => service.id === "ShutterContact"
+      );
+      hasOpenContacts =
+        hasOpenContacts || shutterContactService.state.value !== "CLOSED";
     });
     if (hasOpenContacts) {
-      badges += '<span class="bsh-room-badge"><i class="fas fa-wind"></i></span>';
+      badges +=
+        '<span class="bsh-room-badge"><i class="far fa-wind"></i></span>';
     }
-    badges += `<span class="bsh-room-badge"><i class="fas ${
-      climateControlService.state.operationMode === "MANUAL" ? "fa-user-cog" : "fa-clock"
+    badges += `<span class="bsh-room-badge"><i class="far ${
+      climateControlService.state.operationMode === "MANUAL"
+        ? "fa-user-cog"
+        : "fa-clock"
     }"></i></span>`;
 
     return badges;
@@ -66,9 +72,13 @@ Module.register("MMM-BSH", {
     app.className = "bsh-wrapper";
     let markup = "";
     this.rooms.forEach((room) => {
-      const climateControlDevice = room.devices.find((device) => device.deviceModel === "ROOM_CLIMATE_CONTROL");
+      const climateControlDevice = room.devices.find(
+        (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
+      );
 
-      const shutterContactDevices = room.devices.filter((device) => device.deviceModel === "SWD");
+      const shutterContactDevices = room.devices.filter(
+        (device) => device.deviceModel === "SWD"
+      );
 
       const climateControlService = climateControlDevice.services.find(
         (service) => service.id === "RoomClimateControl"
@@ -95,13 +105,17 @@ Module.register("MMM-BSH", {
 			  </div>`;
 
       roomMarkup += '<div class="bsh-temperatures">';
-      let temperatureLevelDevices = room.devices.filter((device) => device.deviceModel === "TRV");
+      let temperatureLevelDevices = room.devices.filter(
+        (device) => device.deviceModel === "TRV"
+      );
 
       temperatureLevelDevices.forEach((temperatureLevelDevice) => {
         const temperatureLevelService = temperatureLevelDevice.services.find(
           (service) => service.id === "TemperatureLevel"
         );
-        const valveTappetService = temperatureLevelDevice.services.find((service) => service.id === "ValveTappet");
+        const valveTappetService = temperatureLevelDevice.services.find(
+          (service) => service.id === "ValveTappet"
+        );
 
         let heaterIcon = "";
         if (valveTappetService.state.position > 5) {
@@ -110,7 +124,6 @@ Module.register("MMM-BSH", {
         if (valveTappetService.state.position > 15) {
           heaterIcon = `<i class="fas fa-thermometer-three-quarters"></i>`;
         }
-        console.log("valveTappetService.state.position ", valveTappetService.state.position);
         roomMarkup += `<div class="bsh-temperature bsh-temperatures-messured">${temperatureLevelService.state.temperature}°C${heaterIcon}</div>`;
       });
 
@@ -137,8 +150,7 @@ Module.register("MMM-BSH", {
   socketNotificationReceived: function (notification, payload) {
     if (notification === "STATUS_RESULT") {
       this.rooms = payload;
-      console.log(this.rooms);
       this.updateDom();
     }
-  },
+  }
 });
