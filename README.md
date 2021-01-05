@@ -7,13 +7,13 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 - tbd
 
 ## Installing the Module
-Navigate to the MagicMirror subfolder "modules" and execute the following command
+Navigate to the MagicMirror subfolder "modules" and execute the following command  
 `git clone https://github.com/jalibu/MMM-BoschSmartHome.git`
 
-Install dependencies with the following command
+Install dependencies with the following command  
 `npm i`
 
-Generate Certificate
+Generate Certificate  
 `openssl req -x509 -nodes -days 9999 -newkey rsa:2048 -keyout client-key.pem -out client-cert.pem`
 
 Add config entry to MagicMirror/config/config.js
