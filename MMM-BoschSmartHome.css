@@ -1,13 +1,12 @@
 .bsh-wrapper {
   background-color: #ccc;
-  padding-left: 0.6rem;
-  padding-top: -2px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   padding-bottom: 6px;
-  padding-right: 4px;
-  margin-top: -0.5em;
   text-align: left;
   font-size: 1rem;
   color: #111;
+  max-width: 300px;
 }
 .bsh-err {
   color: #111;
@@ -24,12 +23,13 @@
   display: flex;
   align-content: stretch;
   justify-content: space-between;
+  line-height: 2rem;
 }
 .bsh-room-name {
   flex-grow: 4;
 }
 .bsh-room-wrapper {
-  margin-bottom: 0.1em;
+  margin-bottom: 0.5em;
 }
 
 .bsh-room-icon {
@@ -37,10 +37,56 @@
 }
 
 .bsh-room-badge > i {
-  margin-left: 1px;
+  margin-left: 2px;
   margin-right: 1px;
   padding: 2px;
 }
+
+.bsh-tiles {
+  font-size: 0.8rem;
+  line-height: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.bsh-tiles > .bsh-tile:not(:last-child) {
+  margin-right: 3px;
+}
+
+.bsh-tile > i {
+  margin-left: 4px;
+  margin-right: 3px;
+  padding: 0px;
+}
+
+.bsh-tile {
+  background-color: #aaa;
+  padding-right: 3px;
+  margin-bottom: 3px;
+}
+
+.bsh-tile.climate-control {
+  min-width: 4.5em;
+}
+
+.bsh-tile.bsh-eco {
+  color: #fff;
+  background-color: #1f456e;
+}
+
+.bsh-tile.bsh-comfort {
+  color: #fff;
+  background-color: #dc4c4c;
+}
+
+.bsh-tile.bsh-manual {
+  color: #fff;
+  background-color: #2e8b57;
+}
+
+/*
 
 .bsh-temperatures {
   margin-top: -0.4em;
@@ -83,3 +129,4 @@
   color: #fff;
   background-color: #1f456e;
 }
+*/

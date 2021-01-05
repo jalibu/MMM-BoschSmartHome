@@ -49,8 +49,10 @@ Module.register("MMM-BoschSmartHome", {
     }
   },
 
-  getBadges(shutterContactDevices, climateControlService) {
-    let badges = "";
+  getShutterContactBadge(devices) {
+    const shutterContactDevices = devices.filter(
+      (device) => device.deviceModel === "SWD"
+    );
     let hasOpenContacts = false;
     shutterContactDevices.forEach((shutterContactDevice) => {
       const shutterContactService = shutterContactDevice.services.find(
@@ -60,20 +62,88 @@ Module.register("MMM-BoschSmartHome", {
         hasOpenContacts || shutterContactService.state.value !== "CLOSED";
     });
     if (hasOpenContacts) {
-      badges +=
-        '<span class="bsh-room-badge"><i class="fas fa-wind"></i></span>';
+      return '<span class="bsh-room-badge"><i class="fas fa-wind"></i></span>';
     }
-    badges += `<span class="bsh-room-badge"><i class="far ${
+
+    return "";
+  },
+
+  getClimateControlTile(devices) {
+    const climateControlDevice = devices.find(
+      (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
+    );
+    if (!climateControlDevice) return "";
+
+    const climateControlService = climateControlDevice.services.find(
+      (service) => service.id === "RoomClimateControl"
+    );
+    if (!climateControlService) return "";
+
+    let operationMode;
+    if (climateControlService.state.operationMode === "AUTOMATIC") {
+      if (
+        climateControlService.state.setpointTemperature ===
+        climateControlService.state.setpointTemperatureForLevelComfort
+      ) {
+        operationMode = "bsh-comfort";
+      } else if (
+        climateControlService.state.setpointTemperature ===
+        climateControlService.state.setpointTemperatureForLevelEco
+      ) {
+        operationMode = "bsh-eco";
+      } else {
+        operationMode = "bsh-manual";
+      }
+    } else {
+      operationMode = "bsh-manual";
+    }
+
+    return `<div class="bsh-tile climate-control ${operationMode}"><i class="far ${
       climateControlService.state.operationMode === "MANUAL"
         ? "fa-user-cog"
         : "fa-clock"
-    }"></i></span>`;
+    }"></i>${climateControlService.state.setpointTemperature}°C</div>`;
+  },
 
-    return badges;
+  getTemperatureLevelTiles(devices) {
+    let markup = "";
+    let temperatureLevelDevices = devices.filter(
+      (device) => device.deviceModel === "TRV"
+    );
+
+    temperatureLevelDevices.forEach((temperatureLevelDevice) => {
+      const temperatureLevelService = temperatureLevelDevice.services.find(
+        (service) => service.id === "TemperatureLevel"
+      );
+
+      let icon = "";
+      const valveTappetService = temperatureLevelDevice.services.find(
+        (service) => service.id === "ValveTappet"
+      );
+      if (valveTappetService) {
+        if (valveTappetService.state.position > 30) {
+          icon = `<i class="fas fa-thermometer-full"></i>`;
+        } else if (valveTappetService.state.position > 20) {
+          icon = `<i class="fas fa-thermometer-three-quarters"></i>`;
+        } else if (valveTappetService.state.position > 10) {
+          icon = `<i class="fas fa-thermometer-half"></i>`;
+        } else if (valveTappetService.state.position > 5) {
+          icon = `<i class="fas fa-thermometer-quarter"></i>`;
+        } else {
+          icon = `<i class="fas fa-thermometer-empty"></i>`;
+        }
+      } else {
+        icon = `<i class="fas fa-thermometer"></i>`;
+      }
+
+      markup += `<div class="bsh-tile temperature-level">${icon}${temperatureLevelService.state.temperature}°C</div>`;
+    });
+
+    return markup;
   },
 
   getDom() {
-    let app = document.createElement("div");
+    const app = document.createElement("div");
     app.className = "bsh-wrapper";
     let markup = "";
     if (this.err) {
@@ -82,68 +152,26 @@ Module.register("MMM-BoschSmartHome", {
       )}</div>`;
     }
 
-    if (!this.rooms || this.rooms.length < 1) {
+    if ((!this.rooms || this.rooms.length < 1) && !this.err) {
       markup += `<div>${this.translate("loading")}</div>`;
     }
+
     this.rooms.forEach((room) => {
-      const climateControlDevice = room.devices.find(
-        (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
-      );
-
-      const shutterContactDevices = room.devices.filter(
-        (device) => device.deviceModel === "SWD"
-      );
-
-      const climateControlService = climateControlDevice.services.find(
-        (service) => service.id === "RoomClimateControl"
-      );
-
-      let operationMode;
-      if (climateControlService.state.operationMode === "AUTOMATIC") {
-        operationMode =
-          climateControlService.state.setpointTemperature ===
-          climateControlService.state.setpointTemperatureForLevelComfort
-            ? "bsh-comfort"
-            : "bsh-eco";
-      } else {
-        operationMode = "bsh-manual";
-      }
-
-      let roomMarkup = `<div class='bsh-room-wrapper ${operationMode}'>`;
-
-      roomMarkup += `<div class="bsh-room-title">
+      let roomMarkup = `
+		<div class='bsh-room-wrapper'>
+	  		<div class="bsh-room-title">
 			  <span class="bsh-room-icon">
 			  <i class="fas ${this.getIcon(room.iconId)}"></i></span>
 			  <span class="bsh-room-name">${room.name}</span>
-			  <span>${this.getBadges(shutterContactDevices, climateControlService)}</span>
-			  </div>`;
+			  <span class="bsh-badges">${this.getShutterContactBadge(room.devices)}</span>
+			</div>
+			<div class="bsh-tiles">
+				${this.getClimateControlTile(room.devices)} ${this.getTemperatureLevelTiles(
+        room.devices
+      )}
+			</div>
+		</div>`;
 
-      roomMarkup += '<div class="bsh-temperatures">';
-      let temperatureLevelDevices = room.devices.filter(
-        (device) => device.deviceModel === "TRV"
-      );
-
-      temperatureLevelDevices.forEach((temperatureLevelDevice) => {
-        const temperatureLevelService = temperatureLevelDevice.services.find(
-          (service) => service.id === "TemperatureLevel"
-        );
-        const valveTappetService = temperatureLevelDevice.services.find(
-          (service) => service.id === "ValveTappet"
-        );
-
-        let heaterIcon = "";
-        if (valveTappetService.state.position > 5) {
-          heaterIcon = `<i class="fas fa-thermometer-quarter"></i>`;
-        }
-        if (valveTappetService.state.position > 15) {
-          heaterIcon = `<i class="fas fa-thermometer-three-quarters"></i>`;
-        }
-        roomMarkup += `<div class="bsh-temperature bsh-temperatures-messured">${temperatureLevelService.state.temperature}°C${heaterIcon}</div>`;
-      });
-
-      roomMarkup += `<div class="bsh-temperature bsh-temperatures-target">${climateControlService.state.setpointTemperature}°C</div>`;
-      roomMarkup += `</div>`;
-      roomMarkup += "</div>";
       markup += roomMarkup;
     });
     app.innerHTML = markup;
