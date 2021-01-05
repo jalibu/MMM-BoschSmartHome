@@ -5,6 +5,9 @@ Module.register("MMM-BoschSmartHome", {
   defaults: {
     debug: false,
     host: "192.168.0.150",
+    name: "MMM-BoschSmartHome",
+    identifier: "MMM-BoschSmartHome",
+    password: "",
     refreshIntervalInSeconds: 60
   },
 

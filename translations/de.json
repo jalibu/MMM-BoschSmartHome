@@ -1,6 +1,6 @@
 {
   "error": "Fehler",
   "loading": "Lade...",
-  "key_err_cert": "Kein gültiges Zertifikat gefunden",
+  "key_err_cert": "Kein gültiges Zertifikat gefunden. Bitte Server-Logs prüfen.",
   "key_err_loading": "Verarbeitung der Daten fehlgeschlagen"
 }
