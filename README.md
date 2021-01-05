@@ -24,11 +24,11 @@ Add config entry to MagicMirror/config/config.js
 	module: "MMM-BSH",
 	position: "top_left",
 	config: {
-    host: "192.168.0.150", // Local IP Address
-    name: "MMM-BoschSmartHome", // Display name for App
-    identifier: "MMM-BoschSmartHome", // Unique Identifier for app
-    password: "",
-    refreshIntervalInSeconds: 60
+	  host: "192.168.0.150", // Local IP Address
+	  name: "MMM-BoschSmartHome", // Display name for App
+	  identifier: "MMM-BoschSmartHome", // Unique Identifier for app
+	  password: "", // Password for Bosch Smart Home Bridge
+	  refreshIntervalInSeconds: 60
 	}
 }
 ```
