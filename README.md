@@ -1,7 +1,7 @@
 # MMM-BoschSmartHome (Alpha)
 A client interface for the Bosch Smart Home System [Magic Mirror](https://magicmirror.builders/).  
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/).  
-This module is a private project without any relation to Robert Bosch Smart Home GmbH. I neither assume liability for damages or give any warranty.
+This module is a private and inofficial project without any relation to Robert Bosch Smart Home GmbH. I neither assume liability for damages or give any warranty.
 
 
 ## Features
