@@ -1,4 +1,4 @@
-# MMM-BoschSmartHome (Beta)
+# MMM-BoschSmartHome (Alpha)
 A client interface for the Bosch Smart Home System [Magic Mirror](https://magicmirror.builders/).
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/)
 
