@@ -58,7 +58,7 @@ Module.register("MMM-BoschSmartHome", {
     });
     if (hasOpenContacts) {
       badges +=
-        '<span class="bsh-room-badge"><i class="far fa-wind"></i></span>';
+        '<span class="bsh-room-badge"><i class="fas fa-wind"></i></span>';
     }
     badges += `<span class="bsh-room-badge"><i class="far ${
       climateControlService.state.operationMode === "MANUAL"

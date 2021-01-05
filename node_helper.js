@@ -23,6 +23,7 @@ module.exports = NodeHelper.create({
         .withClientPrivateKey(key)
         .withLogger(logger)
         .build();
+
       client = bshb.getBshcClient();
     } catch (err) {
       console.error(err.message);
