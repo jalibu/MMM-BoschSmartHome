@@ -23,7 +23,7 @@ This module is a private and inofficial project without any relation to Robert B
 4) Add config entry to MagicMirror/config/config.js
 ```javascript
 {
-	module: "MMM-BSH",
+	module: "MMM-BoschSmartHome",
 	position: "top_left",
 	config: {
 	  host: "192.168.0.150", // Local IP Address
