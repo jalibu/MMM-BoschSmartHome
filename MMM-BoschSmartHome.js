@@ -68,6 +68,28 @@ Module.register("MMM-BoschSmartHome", {
     return "";
   },
 
+  getTwingardTile(devices) {
+    const twinguardDevice = devices.find(
+      (device) => device.deviceModel === "TWINGUARD"
+    );
+    if (!twinguardDevice) return "";
+
+    const airQualityLevelService = twinguardDevice.services.find(
+      (service) => service.id === "AirQualityLevel"
+    );
+
+    return `
+		  	<div class="bsh-tile airquality ${airQualityLevelService.state.purityRating}">
+			  <i class="fas fa-lungs"></i>${airQualityLevelService.state.purity}ppm
+			</div>
+			<div class="bsh-tile airquality ${airQualityLevelService.state.temperatureRating}">
+			  <i class="fas fa-thermometer"></i>${airQualityLevelService.state.temperature}°C
+			</div>
+			<div class="bsh-tile airquality ${airQualityLevelService.state.humidityRating}">
+			  <i class="fas fa-tint"></i>${airQualityLevelService.state.humidity}%
+			</div>`;
+  },
+
   getClimateControlTile(devices) {
     const climateControlDevice = devices.find(
       (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
@@ -98,10 +120,10 @@ Module.register("MMM-BoschSmartHome", {
       operationMode = "bsh-manual";
     }
 
-    return `<div class="bsh-tile climate-control ${operationMode}"><i class="far ${
+    return `<div class="bsh-tile climate-control ${operationMode}"><i class="${
       climateControlService.state.operationMode === "MANUAL"
-        ? "fa-user-cog"
-        : "fa-clock"
+        ? "fas fa-user-cog"
+        : "far fa-clock"
     }"></i>${climateControlService.state.setpointTemperature}°C</div>`;
   },
 
@@ -166,9 +188,9 @@ Module.register("MMM-BoschSmartHome", {
 			  <span class="bsh-badges">${this.getShutterContactBadge(room.devices)}</span>
 			</div>
 			<div class="bsh-tiles">
-				${this.getClimateControlTile(room.devices)} ${this.getTemperatureLevelTiles(
-        room.devices
-      )}
+				${this.getClimateControlTile(room.devices)}
+				${this.getTwingardTile(room.devices)}
+				${this.getTemperatureLevelTiles(room.devices)}
 			</div>
 		</div>`;
 
@@ -194,6 +216,7 @@ Module.register("MMM-BoschSmartHome", {
     if (notification === "STATUS_RESULT") {
       this.err = null;
       this.rooms = payload;
+      console.log(this.rooms);
       this.updateDom();
     } else if (notification === "ERROR") {
       this.err = payload;

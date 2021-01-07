@@ -83,7 +83,17 @@
 
 .bsh-tile.bsh-manual {
   color: #fff;
-  background-color: #2e8b57;
+  background-color: #884ea0;
+}
+
+.bsh-tile.airquality.GOOD {
+  background-color: #239b56;
+}
+.bsh-tile.airquality.MEDIUM {
+  background-color: #bdb76b;
+}
+.bsh-tile.airquality.BAD {
+  background-color: #dc4c4c;
 }
 
 /*
