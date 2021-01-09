@@ -4,7 +4,7 @@
   padding-right: 0.5rem;
   padding-bottom: 6px;
   text-align: left;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #111;
   max-width: 300px;
 }
@@ -43,8 +43,8 @@
 }
 
 .bsh-tiles {
-  font-size: 0.8rem;
-  line-height: 2rem;
+  font-size: 0.7rem;
+  line-height: 1.4rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

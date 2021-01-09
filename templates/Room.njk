@@ -1,0 +1,16 @@
+{% macro render(room, utils) %}
+  <div class='bsh-room-wrapper'>
+    <div class="bsh-room-title">
+      <span class="bsh-room-icon">
+        <i class="fas {{ room.icon }}"></i>
+      </span>
+      <span class="bsh-room-name">
+        {{room.name}}
+      </span>
+      <span class="bsh-badges">
+      </span>
+    </div>
+    <div class="bsh-tiles">
+    </div>
+  </div>
+{% endmacro %}

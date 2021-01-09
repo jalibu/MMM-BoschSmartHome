@@ -1,0 +1,12 @@
+{% import "templates/Room.njk" as roomTemplate %}
+{% if rooms %}
+<div class="bsh-wrapper">
+  {% for room in rooms %}
+    {{ roomTemplate.render(room)}}
+  {% endfor %}
+</div>
+{% else %}
+  <div class="dimmed light small">
+    {{ "LOADING" | translate | safe }}
+  </div>
+{% endif %}
