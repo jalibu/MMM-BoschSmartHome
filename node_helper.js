@@ -1,7 +1,6 @@
 const NodeHelper = require("node_helper");
 const fs = require("fs");
 const BSMB = require("bosch-smart-home-bridge");
-const BSHUtils = require("./Utils.js");
 
 module.exports = NodeHelper.create({
   start() {
