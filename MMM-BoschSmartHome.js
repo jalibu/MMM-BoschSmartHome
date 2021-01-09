@@ -17,7 +17,7 @@ Module.register("MMM-BoschSmartHome", {
   },
 
   getScripts() {
-    return [this.file("Utils.js")];
+    return [this.file("BSHUtils.js")];
   },
 
   getTranslations() {
@@ -36,7 +36,7 @@ Module.register("MMM-BoschSmartHome", {
       config: this.config,
       rooms: this.rooms,
       error: this.error,
-      utils: Utils
+      utils: BSHUtils
     };
   },
 

@@ -1,4 +1,4 @@
-class Utils {
+class BSHUtils {
   static getRoomIcon(iconId) {
     switch (iconId) {
       case "icon_room_bathroom":
