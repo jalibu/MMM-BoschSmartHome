@@ -1,16 +1,17 @@
+{% import "templates/badges/Badges.njk" as badges %}
+{% import "templates/tiles/Tiles.njk" as tiles %}
+
 {% macro render(room, utils) %}
   <div class='bsh-room-wrapper'>
     <div class="bsh-room-title">
       <span class="bsh-room-icon">
-        <i class="fas {{ room.icon }}"></i>
+        <i class="fas {{ utils.getRoomIcon(room.iconId) }}"></i>
       </span>
       <span class="bsh-room-name">
         {{room.name}}
       </span>
-      <span class="bsh-badges">
-      </span>
+      {{ badges.render(room, utils) }}
     </div>
-    <div class="bsh-tiles">
-    </div>
+    {{ tiles.render(room, utils) }}
   </div>
 {% endmacro %}

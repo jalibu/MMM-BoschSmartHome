@@ -1,12 +1,14 @@
 const NodeHelper = require("node_helper");
 const fs = require("fs");
 const BSMB = require("bosch-smart-home-bridge");
+const BSHUtils = require("./Utils.js");
 
 module.exports = NodeHelper.create({
-  start: function () {
+  start() {
     console.log(`${this.name} helper method started...`);
   },
-  loadData: async function (config) {
+
+  async loadData(config) {
     const self = this;
     let client;
     try {
@@ -87,7 +89,7 @@ module.exports = NodeHelper.create({
     }
   },
 
-  socketNotificationReceived: function (notification, config) {
+  socketNotificationReceived(notification, config) {
     if (notification === "GET_STATUS") {
       this.loadData(config);
     } else {

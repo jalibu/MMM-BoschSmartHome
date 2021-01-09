@@ -1,0 +1,23 @@
+{% import "templates/tiles/_Tile.njk" as tile %}
+
+{% macro render(room, utils) %}
+  {% set climateControlService = utils.getClimateControlService(room.devices) %}
+  {% if climateControlService %}
+
+    {% if climateControlService.state.operationMode == "AUTOMATIC" %}
+      {% set icon = '<i class="far fa-clock"></i>' %}
+      {% if climateControlService.state.setpointTemperature == climateControlService.state.setpointTemperatureForLevelComfort %}
+        {% set operationMode = "bsh-comfort" %}
+      {% elif climateControlService.state.setpointTemperature == climateControlService.state.setpointTemperatureForLevelEco %}
+        {% set operationMode = "bsh-eco" %}
+      {% else %}
+        {% set operationMode = "bsh-manual" %}
+      {% endif %}
+    {% else %}
+      {% set icon = '<i class="fas fa-user-cog"></i>' %}
+      {% set operationMode = "bsh-manual" %}
+    {% endif %}
+
+    {{ tile.render('climate-control ' + operationMode, icon + climateControlService.state.setpointTemperature + '°C') }}
+  {% endif %}
+{% endmacro %}
