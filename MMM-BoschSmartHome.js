@@ -8,7 +8,7 @@ Module.register("MMM-BoschSmartHome", {
     name: "MMM-BoschSmartHome",
     identifier: "MMM-BoschSmartHome",
     password: "",
-    width: "360px",
+    width: "340px",
     refreshIntervalInSeconds: 60
   },
 

@@ -1,24 +1,11 @@
 .bsh-wrapper {
   background-color: #ccc;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-bottom: 6px;
+  padding: 0.5rem;
   text-align: left;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   color: #111;
   max-width: 300px;
 }
-.bsh-err {
-  color: #111;
-  font-size: 0.7rem;
-}
-.bsh-err i {
-  margin-right: 5px;
-}
-.bsh-err h3 {
-  margin-bottom: -2em;
-}
-
 .bsh-room-title {
   display: flex;
   align-content: stretch;
@@ -31,61 +18,47 @@
 .bsh-room-wrapper {
   margin-bottom: 0.5em;
 }
-
 .bsh-room-icon {
   margin-right: 4px;
 }
-
 .bsh-room-badge > i {
   margin-left: 2px;
   margin-right: 1px;
   padding: 2px;
 }
-
 .bsh-tiles {
-  font-size: 0.7rem;
-  line-height: 1.4rem;
+  font-size: 1rem;
+  line-height: 2.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
 }
-
 .bsh-tiles > .bsh-tile:not(:last-child) {
-  margin-right: 3px;
+  margin-right: 0.25rem;
 }
-
 .bsh-tile > i {
-  margin-left: 4px;
-  margin-right: 3px;
-  padding: 0px;
+  margin-right: 0.25rem;
 }
-
 .bsh-tile {
   background-color: #aaa;
-  padding-right: 3px;
-  margin-bottom: 3px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  min-width: 5em;
 }
-
-.bsh-tile.climate-control {
-  min-width: 4.5em;
-}
-
-.bsh-tile.bsh-eco {
+.bsh-tile.climate-control.bsh-eco {
   color: #fff;
   background-color: #1f456e;
 }
-
-.bsh-tile.bsh-comfort {
+.bsh-tile.climate-control.bsh-comfort {
   color: #fff;
   background-color: #dc4c4c;
 }
-
-.bsh-tile.bsh-manual {
+.bsh-tile.climate-control.bsh-manual {
   color: #fff;
   background-color: #884ea0;
 }
-
 .bsh-tile.airquality.GOOD {
   background-color: #239b56;
 }
@@ -93,50 +66,6 @@
   background-color: #bdb76b;
 }
 .bsh-tile.airquality.BAD {
-  background-color: #dc4c4c;
-}
-
-/*
-
-.bsh-temperatures {
-  margin-top: -0.4em;
-  display: flex;
-  justify-content: stretch;
-  font-size: 0.9rem;
-  line-height: 1rem;
-}
-
-.bsh-temperature {
-  background-color: #aaa;
-  padding: 6px;
-  margin-right: 4px;
-}
-
-.bsh-temperature > i {
-  margin-left: 4px;
-}
-
-.bsh-temperatures-messured {
-  flex-grow: 4;
-}
-
-.bsh-temperatures-target > i {
-  font-size: 12px;
-}
-
-.bsh-temperatures-target {
-  background-color: #888;
-  min-width: 3em;
-  text-align: center;
-}
-
-.bsh-comfort .bsh-temperatures-target {
   color: #fff;
   background-color: #dc4c4c;
 }
-
-.bsh-eco .bsh-temperatures-target {
-  color: #fff;
-  background-color: #1f456e;
-}
-*/
