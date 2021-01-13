@@ -1,0 +1,21 @@
+{% import "templates/tiles/_Tile.njk" as tile %}
+
+{% macro render(room, utils) %}
+  {% set thermostatServices = utils.getThermostatServices(room.devices) %}
+  {% if thermostatServices %}
+      {% for thermostat in thermostatServices %}
+        {% if thermostat.valveTappetService.state.position > 30 %}
+          {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
+        {% elif thermostat.valveTappetService.state.position > 20 %}
+          {% set icon = '<i class="fas fa-thermometer-three-quarters"></i>' %}
+        {% elif thermostat.valveTappetService.state.position > 10 %}
+          {% set icon = '<i class="fas fa-thermometer-half"></i>' %}
+        {% elif thermostat.valveTappetService.state.position > 5 %}
+          {% set icon = '<i class="fas fa-thermometer-quarter"></i>' %}
+        {% else %}
+          {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
+        {% endif %}
+        {{ tile.render('climate-control temperature-level', icon + thermostat.temperatureLevelService.state.temperature + '°C') }}
+      {% endfor %}
+  {% endif %}
+{% endmacro %}

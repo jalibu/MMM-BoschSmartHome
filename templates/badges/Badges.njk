@@ -1,0 +1,7 @@
+{% import "templates/badges/Shutter.njk" as shutterBadge %}
+
+{% macro render(room, utils) %}
+  <span class="bsh-badges">
+    {{ shutterBadge.render(room, utils) }}
+  </span>
+{% endmacro %}

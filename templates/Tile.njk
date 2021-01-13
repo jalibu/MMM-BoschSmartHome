@@ -1,0 +1,32 @@
+{% if rooms %}
+<div class="bsh-wrapper">
+  {% for room in rooms %}
+    <div class='bsh-room-wrapper'>
+      <div class="bsh-room-title">
+        <span class="bsh-room-icon">
+          <i class="fas"></i>
+        </span>
+        <span class="bsh-room-name">
+          {{room.name}}
+          {{}}
+        </span>
+        <span class="bsh-badges">
+        </span>
+      </div>
+      <div class="bsh-tiles">
+        ${this.getClimateControlTile(room.devices)}
+        ${this.getTwingardTile(room.devices)}
+        ${this.getTemperatureLevelTiles(room.devices)}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+  <div class="dimmed light small">
+    {{ "LOADING" | translate | safe }}
+  </div>
+{% endif %}
+
+{% block test %}
+hallo
+{% endblock%}

@@ -1,0 +1,11 @@
+{% import "templates/tiles/ClimateControl.njk" as climateControl %}
+{% import "templates/tiles/Thermostats.njk" as thermostats %}
+{% import "templates/tiles/AirQuality.njk" as airquality %}
+
+{% macro render(room, utils) %}
+  <div class="bsh-tiles">
+    {{ climateControl.render(room, utils) }}
+    {{ thermostats.render(room, utils) }}
+    {{ airquality.render(room, utils) }}
+  </div>
+{% endmacro %}

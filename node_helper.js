@@ -3,10 +3,11 @@ const fs = require("fs");
 const BSMB = require("bosch-smart-home-bridge");
 
 module.exports = NodeHelper.create({
-  start: function () {
+  start() {
     console.log(`${this.name} helper method started...`);
   },
-  loadData: async function (config) {
+
+  async loadData(config) {
     const self = this;
     let client;
     try {
@@ -78,6 +79,12 @@ module.exports = NodeHelper.create({
       });
 
       self.sendSocketNotification("STATUS_RESULT", rooms);
+      if (config.debug) {
+        fs.writeFileSync(
+          __dirname + "/debugResponse.json",
+          JSON.stringify(rooms)
+        );
+      }
     } catch (err) {
       console.error(err.message);
       self.sendSocketNotification("ERROR", {
@@ -87,7 +94,7 @@ module.exports = NodeHelper.create({
     }
   },
 
-  socketNotificationReceived: function (notification, config) {
+  socketNotificationReceived(notification, config) {
     if (notification === "GET_STATUS") {
       this.loadData(config);
     } else {
