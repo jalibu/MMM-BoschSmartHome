@@ -79,6 +79,12 @@ module.exports = NodeHelper.create({
       });
 
       self.sendSocketNotification("STATUS_RESULT", rooms);
+      if (config.debug) {
+        fs.writeFileSync(
+          __dirname + "/debugResponse.json",
+          JSON.stringify(rooms)
+        );
+      }
     } catch (err) {
       console.error(err.message);
       self.sendSocketNotification("ERROR", {
