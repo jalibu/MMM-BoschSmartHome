@@ -27,25 +27,32 @@
   padding: 2px;
 }
 .bsh-tiles {
+  margin: auto;
   font-size: 1rem;
   line-height: 2.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: stretch;
-}
-.bsh-tiles > .bsh-tile:not(:last-child) {
-  margin-right: 0.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 4px;
 }
 .bsh-tile > i {
   margin-right: 0.25rem;
 }
 .bsh-tile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   background-color: #aaa;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  margin-bottom: 0.25rem;
-  min-width: 5em;
+  width: 5em;
+}
+.bsh-tile.climate-control {
+  flex-direction: column;
+  align-items: stretch;
+}
+.bsh-tile.tile-large {
+  height: 15vh;
+  grid-row-end: span 2;
 }
 .bsh-tile.climate-control.bsh-eco {
   color: #fff;
@@ -58,6 +65,10 @@
 .bsh-tile.climate-control.bsh-manual {
   color: #fff;
   background-color: #884ea0;
+}
+.bsh-tile.climate-control span.setpoint-temperature {
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 .bsh-tile.airquality.GOOD {
   background-color: #239b56;

@@ -1,5 +1,3 @@
-{% import "templates/tiles/_Tile.njk" as tile %}
-
 {% macro render(room, utils) %}
   {% set climateControlService = utils.getClimateControlService(room.devices) %}
   {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
@@ -19,13 +17,13 @@
       {% set operationMode = "bsh-manual" %}
     {% endif %}
 
-    {{ tile.render(
-      'climate-control tile-large ' + operationMode,
-      '<div>' + icon + '
-      <span class="setpoint-temperature">' + climateControlService.state.setpointTemperature + '°C</span>
-      </div>
-      <div class="room-temperature">' + temperatureLevelService.state.temperature + '°C</div>
-      ')
-    }}
+    <span class="climate-control {{ operationMode }}">
+    {{ icon | safe }}
+    {% if climateControlService.state.operationMode == "AUTOMATIC" %}
+      AUTO
+    {% else %}
+      MANUAL
+    {% endif %}
+    </span>
   {% endif %}
 {% endmacro %}

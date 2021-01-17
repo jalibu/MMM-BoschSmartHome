@@ -1,0 +1,10 @@
+{% import "templates/tiles/_Tile.njk" as tile %}
+
+{% macro render(room, utils) %}
+  {% set dishwasherService = utils.getDishWasherService(room.devices) %}
+  {% if dishwasherService %}
+
+        {{ tile.render('dishwasher', dishwasherService.deviceName + ' ' + dishwasherService.state.operationState) }}
+
+  {% endif %}
+{% endmacro %}

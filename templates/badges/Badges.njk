@@ -1,6 +1,15 @@
 {% import "templates/badges/Shutter.njk" as shutterBadge %}
 
 {% macro render(room, utils) %}
+  {% set lowBatteryDevices = utils.getLowBatteryDevices(room.devices) %}
+  {% if lowBatteryDevices.length > 0 %}
+  Battery
+  {% endif %}
+
+  {% set hueDevices = utils.getSwitchedOnHueDevices(room.devices) %}
+    {% if hueDevices.length > 0 %}
+  Hue
+  {% endif %}
   <span class="bsh-badges">
     {{ shutterBadge.render(room, utils) }}
   </span>

@@ -1,11 +1,13 @@
 {% import "templates/tiles/ClimateControl.njk" as climateControl %}
 {% import "templates/tiles/Thermostats.njk" as thermostats %}
 {% import "templates/tiles/AirQuality.njk" as airquality %}
+{% import "templates/tiles/Dishwasher.njk" as dishwasher %}
 
 {% macro render(room, utils) %}
   <div class="bsh-tiles">
     {{ climateControl.render(room, utils) }}
     {{ thermostats.render(room, utils) }}
     {{ airquality.render(room, utils) }}
+    {{ dishwasher.render(room, utils) }}
   </div>
 {% endmacro %}

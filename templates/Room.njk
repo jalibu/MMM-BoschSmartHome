@@ -1,5 +1,6 @@
 {% import "templates/badges/Badges.njk" as badges %}
 {% import "templates/tiles/Tiles.njk" as tiles %}
+{% import "templates/ClimateControl.njk" as climateControl %}
 
 {% macro render(room, utils) %}
   <div class='bsh-room-wrapper'>
@@ -10,7 +11,8 @@
       <span class="bsh-room-name">
         {{room.name}}
       </span>
-      {{ badges.render(room, utils) }}
+      {{ climateControl.render(room, utils) }}
+      {{ badges.render(room, utils)}}
     </div>
     {{ tiles.render(room, utils) }}
   </div>
