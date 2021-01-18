@@ -1,8 +1,7 @@
-{% import "templates/tiles/_Tile.njk" as tile %}
-
 {% macro render(room, utils) %}
   {% set climateControlService = utils.getClimateControlService(room.devices) %}
-  {% if climateControlService %}
+  {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
+  {% if climateControlService and temperatureLevelService %}
 
     {% if climateControlService.state.operationMode == "AUTOMATIC" %}
       {% set icon = '<i class="far fa-clock"></i>' %}
@@ -18,6 +17,13 @@
       {% set operationMode = "bsh-manual" %}
     {% endif %}
 
-    {{ tile.render('climate-control ' + operationMode, icon + climateControlService.state.setpointTemperature + '°C') }}
+    <span class="bsh-badge climate-control {{ operationMode }}">
+    {{ icon | safe }}
+    {% if climateControlService.state.operationMode == "AUTOMATIC" %}
+      AUTO
+    {% else %}
+      MANUAL
+    {% endif %}
+    </span>
   {% endif %}
 {% endmacro %}

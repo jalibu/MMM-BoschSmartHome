@@ -1,7 +1,7 @@
 {% import "templates/badges/_Badge.njk" as badge %}
 
 {% macro render(room, utils) %}
-  {% if utils.hasOpenShutters(room.devices) %}
+  {% if utils.getOpenShutters(room.devices).length > 0 %}
     {{ badge.render('<i class="fas fa-wind"></i>') }}
   {% endif %}
 {% endmacro %}

@@ -1,16 +1,24 @@
-{% import "templates/badges/Badges.njk" as badges %}
+{% import "templates/badges/IconBadges.njk" as iconBadges %}
+{% import "templates/badges/ClimateControl.njk" as climateControlBadge %}
 {% import "templates/tiles/Tiles.njk" as tiles %}
 
-{% macro render(room, utils) %}
+{% macro render(room, config, utils) %}
   <div class='bsh-room-wrapper'>
     <div class="bsh-room-title">
-      <span class="bsh-room-icon">
-        <i class="fas {{ utils.getRoomIcon(room.iconId) }}"></i>
+      {% if config.displayRoomIcons %}
+        <span class="bsh-room-icon">
+          <i class="fas {{ utils.getRoomIcon(room.iconId) }}"></i>
+        </span>
+      {% endif %}
+      <span class="bsh-title-left">
+        <span class="bsh-room-name">
+          {{room.name}}
+        </span>
+        {{ climateControlBadge.render(room, utils) }}
       </span>
-      <span class="bsh-room-name">
-        {{room.name}}
+      <span class="bsh-badges bsh-title-right">
+        {{ iconBadges.render(room, utils)}}
       </span>
-      {{ badges.render(room, utils) }}
     </div>
     {{ tiles.render(room, utils) }}
   </div>

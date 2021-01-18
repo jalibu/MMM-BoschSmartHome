@@ -1,0 +1,18 @@
+{% import "templates/badges/Shutter.njk" as shutterBadge %}
+{% import "templates/badges/_Badge.njk" as badge %}
+
+{% macro render(room, utils) %}
+  <span class="bsh-icon-badges">
+    {{ shutterBadge.render(room, utils) }}
+
+    {% set hueDevices = utils.getSwitchedOnHueDevices(room.devices) %}
+    {% if hueDevices.length > 0 %}
+      {{ badge.render('<i class="far fa-lightbulb icon-only"></i>') }}
+    {% endif %}
+
+    {% set lowBatteryDevices = utils.getLowBatteryDevices(room.devices) %}
+    {% if lowBatteryDevices.length > 0 %}
+      {{ badge.render('<i class="fas fa-battery-quarter icon-only"></i>') }}
+    {% endif %}
+  </span>
+{% endmacro %}

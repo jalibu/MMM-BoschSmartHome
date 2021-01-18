@@ -15,7 +15,7 @@
         {% else %}
           {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
         {% endif %}
-        {{ tile.render('climate-control temperature-level', icon + thermostat.temperatureLevelService.state.temperature + '°C') }}
+        {{ tile.render('temperature-level', icon + thermostat.temperatureLevelService.state.temperature + '°C') }}
       {% endfor %}
   {% endif %}
 {% endmacro %}

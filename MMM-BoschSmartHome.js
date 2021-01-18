@@ -1,7 +1,9 @@
+/* global Class, BSHUtils */
 "use strict";
 
 Module.register("MMM-BoschSmartHome", {
   defaults: {
+    mocked: false,
     debug: false,
     header: null,
     host: "192.168.0.150",
@@ -9,7 +11,9 @@ Module.register("MMM-BoschSmartHome", {
     identifier: "MMM-BoschSmartHome",
     password: "",
     width: "340px",
-    refreshIntervalInSeconds: 60
+    refreshIntervalInSeconds: 60,
+    displayCharts: false,
+    displayRoomIcons: false
   },
 
   getStyles() {
@@ -17,7 +21,10 @@ Module.register("MMM-BoschSmartHome", {
   },
 
   getScripts() {
-    return [this.file("BSHUtils.js")];
+    return [
+      this.file("BSHUtils.js"),
+      this.file("node_modules/chart.js/dist/Chart.min.js")
+    ];
   },
 
   getTranslations() {
@@ -45,6 +52,10 @@ Module.register("MMM-BoschSmartHome", {
   },
 
   start() {
+    // Override defaults
+    this.nunjucksEnvironment().loaders[0].async = false;
+    this.nunjucksEnvironment().loaders[0].useCache = true;
+
     this.rooms = [];
     this.error = null;
     this.loadData();
@@ -67,6 +78,7 @@ Module.register("MMM-BoschSmartHome", {
     if (notification === "STATUS_RESULT") {
       this.error = null;
       this.rooms = payload;
+      console.log(this.rooms);
       this.updateDom();
     } else if (notification === "ERROR") {
       this.error = payload;

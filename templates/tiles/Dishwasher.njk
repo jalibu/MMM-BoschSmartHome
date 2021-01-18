@@ -1,0 +1,14 @@
+{% macro render(room, utils) %}
+  {% set dishwasherService = utils.getDishWasherService(room.devices) %}
+
+  {% if dishwasherService %}
+    <div class="bsh-tile dishwasher">
+      {% if dishwasherService.state.operationState === "RUNNING" %}
+        <i class="fas fa-play"></i>
+      {% else %}
+        <i class="fas fa-stop"></i>
+      {% endif %}
+      {{ dishwasherService.deviceName }}
+    </div>
+  {% endif %}
+{% endmacro %}

@@ -14,21 +14,58 @@ class BSHUtils {
     }
   }
 
-  static hasOpenShutters(devices) {
+  static getLowBatteryDevices(devices) {
+    const response = [];
+
+    for (const device of devices) {
+      const batteryLevelService = device.services.find(
+        (service) => service.id === "BatteryLevel"
+      );
+
+      if (batteryLevelService && batteryLevelService.faults) {
+        response.push(device.name);
+      }
+    }
+    return response;
+  }
+
+  static getSwitchedOnHueDevices(devices) {
+    const hueLights = devices.filter(
+      (device) => device.deviceModel === "HUE_LIGHT"
+    );
+    let switchedOnDevices = [];
+    hueLights.forEach((hueLight) => {
+      const binarySwitchService = hueLight.services.find(
+        (service) => service.id === "BinarySwitch"
+      );
+      if (
+        binarySwitchService.state.on &&
+        switchedOnDevices.indexOf(hueLight.name) <= 0
+      ) {
+        switchedOnDevices.push(hueLight.name);
+      }
+    });
+    return switchedOnDevices;
+  }
+
+  static getOpenShutters(devices) {
     const shutterContactDevices = devices.filter(
       (device) => device.deviceModel === "SWD"
     );
-    let hasOpenShutters = false;
+    let openShutters = [];
     shutterContactDevices.forEach((shutterContactDevice) => {
       const shutterContactService = shutterContactDevice.services.find(
         (service) => service.id === "ShutterContact"
       );
-
-      hasOpenShutters =
-        hasOpenShutters || shutterContactService.state.value !== "CLOSED";
+      if (
+        shutterContactService.state.value !== "CLOSED" &&
+        openShutters.indexOf(shutterContactDevice.profile) <= 0
+      ) {
+        openShutters.push(shutterContactDevice.profile);
+      }
     });
 
-    return hasOpenShutters;
+    return openShutters;
   }
 
   static getClimateControlService(devices) {
@@ -39,6 +76,17 @@ class BSHUtils {
 
     return climateControlDevice.services.find(
       (service) => service.id === "RoomClimateControl"
+    );
+  }
+
+  static getTemperatureLevelService(devices) {
+    const climateControlDevice = devices.find(
+      (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
+    );
+    if (!climateControlDevice) return;
+
+    return climateControlDevice.services.find(
+      (service) => service.id === "TemperatureLevel"
     );
   }
 
@@ -74,5 +122,21 @@ class BSHUtils {
     });
 
     return services;
+  }
+
+  static getDishWasherService(devices) {
+    let dishwasherDevice = devices.find(
+      (device) => device.deviceModel === "HOMECONNECT_DISHWASHER"
+    );
+
+    if (!dishwasherDevice) return;
+
+    const service = dishwasherDevice.services.find(
+      (service) => service.id === "HCDishwasher"
+    );
+
+    service.deviceName = dishwasherDevice.name;
+
+    return service;
   }
 }
