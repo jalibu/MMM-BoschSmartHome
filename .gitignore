@@ -105,4 +105,4 @@ dist
 
 *.pem
 
-debugResponse*.json
+debugResponse.json

@@ -1,0 +1,18 @@
+{% macro render(room, utils) %}
+  {% set airQualityService = utils.getAirQualityService(room.devices) %}
+  {% if airQualityService %}
+    <div class="bsh-tile airquality {{airQualityService.state.purityRating}}">
+      <i class="fas fa-lungs"></i>{{ airQualityService.state.purity.toFixed(0) }}ppm
+    </div>
+    <div class="bsh-tile airquality {{airQualityService.state.temperatureRating}}">
+      <i class="fas fa-thermometer"></i>{{ airQualityService.state.temperature.toFixed(1) }}°C
+    </div>
+    <div class="bsh-tile airquality {{airQualityService.state.humidityRating}}">
+      <i class="fas fa-tint"></i>{{ airQualityService.state.humidity.toFixed(0) }}%
+    </div>
+  {% elif room.extProperties.humidity %}
+    <div class="bsh-tile airquality">
+      <i class="fas fa-tint"></i>{{ room.extProperties.humidity }}%
+    </div>
+  {% endif %}
+{% endmacro %}

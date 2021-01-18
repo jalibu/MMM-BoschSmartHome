@@ -1,6 +1,4 @@
 {
-  "error": "Error",
-  "loading": "Loading...",
-  "key_err_cert": "Did not find valid certificate. Please check server logs.",
-  "key_err_loading": "Failed to process data"
+  "TEMPERATURE_IS": "Is",
+  "TEMPERATURE_TARGET": "Target"
 }

@@ -1,95 +1,103 @@
 const NodeHelper = require("node_helper");
 const fs = require("fs");
 const BSMB = require("bosch-smart-home-bridge");
+const { CanvasRenderService } = require("chartjs-node-canvas");
 
 module.exports = NodeHelper.create({
-  start: function () {
+  cert: null,
+  key: null,
+  logger: null,
+  client: null,
+  rooms: null,
+
+  start() {
+    this.cert = fs.readFileSync(`${__dirname}/client-cert.pem`).toString();
+    this.key = fs.readFileSync(`${__dirname}/client-key.pem`).toString();
+
+    // Override Logger to avoid some annoying logs
+    this.logger = new BSMB.DefaultLogger();
+    this.logger.fine = () => {};
+    this.logger.info = (msg) => {
+      if (
+        msg.indexOf("Using existing certificate") >= 0 ||
+        msg.indexOf("Check if client with identifier") >= 0
+      ) {
+        return;
+      }
+      console.info(msg);
+    };
+
     console.log(`${this.name} helper method started...`);
   },
-  loadData: async function (config) {
-    const self = this;
-    let client;
-    try {
-      const cert = fs.readFileSync(`${__dirname}/client-cert.pem`).toString();
-      const key = fs.readFileSync(`${__dirname}/client-key.pem`).toString();
 
-      // Override Logger to avoid some annoying logs
-      const logger = new BSMB.DefaultLogger();
-      logger.fine = () => {};
-      logger.info = (msg) => {
-        if (
-          msg.indexOf("Using existing certificate") >= 0 ||
-          msg.indexOf("Check if client with identifier") >= 0
-        ) {
-          return;
-        }
-        console.info(msg);
-      };
+  async establishConnection(config) {
+    if (!this.client) {
+      try {
+        const bshb = BSMB.BoschSmartHomeBridgeBuilder.builder()
+          .withHost(config.host)
+          .withClientCert(this.cert)
+          .withClientPrivateKey(this.key)
+          .withLogger(this.logger)
+          .build();
 
-      const bshb = BSMB.BoschSmartHomeBridgeBuilder.builder()
-        .withHost(config.host)
-        .withClientCert(cert)
-        .withClientPrivateKey(key)
-        .withLogger(logger)
-        .build();
-      const resp = await bshb
-        .pairIfNeeded(config.name, config.identifier, config.password)
-        .toPromise();
-      client = bshb.getBshcClient();
-    } catch (err) {
-      console.error(err);
-      self.sendSocketNotification("ERROR", {
-        key: "key_err_cert",
-        message: err.message
-      });
-      return;
+        await bshb
+          .pairIfNeeded(config.name, config.identifier, config.password)
+          .toPromise();
+        this.client = bshb.getBshcClient();
+      } catch (err) {
+        console.log(err);
+      }
     }
+  },
+
+  async loadData() {
     try {
-      let rooms = [];
+      if (!this.rooms) {
+        const {
+          parsedResponse: rooms
+        } = await this.client.getRooms().toPromise();
+        this.rooms = rooms;
+      }
+
       const {
-        parsedResponse: roomsResponse
-      } = await client.getRooms().toPromise();
-      roomsResponse.forEach((result) => {
-        result.devices = [];
-        rooms.push(result);
-      });
-      const { parsedResponse: devices } = await client.getDevices().toPromise();
-      devices.forEach((device) => {
-        const room = rooms.find((room) => room.id === device.roomId);
-        if (room) {
-          device.services = [];
-          room.devices.push(device);
-        }
-      });
+        parsedResponse: devices
+      } = await this.client.getDevices().toPromise();
 
       const {
         parsedResponse: services
-      } = await client.getDevicesServices().toPromise();
+      } = await this.client.getDevicesServices().toPromise();
 
-      services.forEach((service) => {
-        rooms.forEach((room) => {
-          const device = room.devices.find(
-            (device) => device.id === service.deviceId
-          );
-          if (device) {
-            device.services.push(service);
-          }
-        });
-      });
+      for (const device of devices) {
+        device.services = services.filter(
+          (service) => service.deviceId === device.id
+        );
+      }
 
-      self.sendSocketNotification("STATUS_RESULT", rooms);
+      for (const room of this.rooms) {
+        room.devices = devices.filter((device) => device.roomId === room.id);
+      }
     } catch (err) {
       console.error(err.message);
-      self.sendSocketNotification("ERROR", {
-        key: "key_err_loading",
-        message: err.message
-      });
     }
   },
 
-  socketNotificationReceived: function (notification, config) {
+  async socketNotificationReceived(notification, config) {
     if (notification === "GET_STATUS") {
-      this.loadData(config);
+      if (config.mocked) {
+        const data = fs.readFileSync(__dirname + "/debugResponse.json");
+        this.rooms = JSON.parse(data);
+      } else {
+        await this.establishConnection(config);
+        await this.loadData();
+
+        if (config.debug) {
+          fs.writeFileSync(
+            __dirname + "/debugResponse.json",
+            JSON.stringify(this.rooms)
+          );
+        }
+      }
+      this.sendSocketNotification("STATUS_RESULT", this.rooms);
     } else {
       console.warn(`${notification} is invalid notification`);
     }
