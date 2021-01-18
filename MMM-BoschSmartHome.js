@@ -12,7 +12,8 @@ Module.register("MMM-BoschSmartHome", {
     password: "",
     width: "340px",
     refreshIntervalInSeconds: 60,
-    showCharts: false
+    displayCharts: false,
+    displayRoomIcons: false
   },
 
   getStyles() {

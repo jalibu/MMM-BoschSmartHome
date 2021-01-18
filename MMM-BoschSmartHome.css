@@ -1,37 +1,62 @@
 .bsh-wrapper {
-  background-color: #ccc;
-  padding: 0.5rem;
+  /* background-color: #ccc;
+  padding: 0.5rem; */
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   color: #111;
   max-width: 300px;
 }
-.bsh-room-title {
-  display: flex;
-  align-content: stretch;
-  justify-content: space-between;
-  line-height: 2rem;
-}
-.bsh-room-name {
-  flex-grow: 4;
-}
 .bsh-room-wrapper {
+  background-color: rgba(128, 128, 128, 0.2);
+  padding: 0.5em;
   margin-bottom: 0.5em;
+}
+.bsh-room-title {
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 4px;
+  align-items: center;
+}
+.bsh-title-left {
+  flex-grow: 4;
 }
 .bsh-room-icon {
   margin-right: 4px;
 }
-.bsh-room-badge > i {
-  margin-left: 2px;
-  margin-right: 1px;
-  padding: 2px;
+
+.bsh-badge {
+  font-size: 0.6em;
+  padding-left: 4px;
+  padding-right: 4px;
 }
+
+.bsh-badge.climate-control {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.bsh-badge.climate-control.bsh-eco {
+  color: #fff;
+  background-color: #1f456e;
+}
+.bsh-badge.climate-control.bsh-comfort {
+  color: #fff;
+  background-color: #dc4c4c;
+}
+.bsh-badge.climate-control.bsh-manual {
+  color: #fff;
+  background-color: #884ea0;
+}
+
 .bsh-tiles {
   margin: auto;
   font-size: 1rem;
-  line-height: 2.5rem;
+  line-height: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
   grid-gap: 4px;
 }
 .bsh-tile > i {
@@ -44,30 +69,24 @@
   background-color: #aaa;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  width: 5em;
 }
-.bsh-tile.climate-control {
-  flex-direction: column;
-  align-items: stretch;
+
+.bsh-badge i.icon-only {
+  font-size: 1.5em;
 }
-.bsh-tile.tile-large {
-  height: 15vh;
-  grid-row-end: span 2;
+
+.bsh-tile.tile-row {
+  grid-column: 1 / span 3;
+  justify-content: space-evenly;
+  align-items: flex-end;
 }
-.bsh-tile.climate-control.bsh-eco {
-  color: #fff;
-  background-color: #1f456e;
+
+.bsh-tile.temperature span.setpoint-temperature {
+  font-size: 1.8rem;
 }
-.bsh-tile.climate-control.bsh-comfort {
-  color: #fff;
-  background-color: #dc4c4c;
-}
-.bsh-tile.climate-control.bsh-manual {
-  color: #fff;
-  background-color: #884ea0;
-}
-.bsh-tile.climate-control span.setpoint-temperature {
-  font-size: 1.3rem;
+
+.bsh-tile.temperature span.room-temperature {
+  font-size: 1.8rem;
   font-weight: bold;
 }
 .bsh-tile.airquality.GOOD {

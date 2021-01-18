@@ -1,9 +1,9 @@
 {% import "templates/Room.njk" as roomTemplate %}
 
-{% if rooms %}
+{% if rooms and rooms.length > 0%}
 <div class="normal medium bsh-wrapper" style="max-width: {{config.width}};">
   {% for room in rooms %}
-    {{ roomTemplate.render(room, utils)}}
+    {{ roomTemplate.render(room, config, utils)}}
   {% endfor %}
 </div>
 {% else %}

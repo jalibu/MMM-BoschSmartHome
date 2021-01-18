@@ -9,6 +9,7 @@ module.exports = NodeHelper.create({
   logger: null,
   client: null,
   rooms: null,
+
   start() {
     this.cert = fs.readFileSync(`${__dirname}/client-cert.pem`).toString();
     this.key = fs.readFileSync(`${__dirname}/client-key.pem`).toString();
@@ -29,14 +30,9 @@ module.exports = NodeHelper.create({
     console.log(`${this.name} helper method started...`);
   },
 
-  stop() {
-    this.client.unsubscribe();
-  },
-
-  async generateClient(config) {
+  async establishConnection(config) {
     if (!this.client) {
       try {
-        console.log("client wird erstellt");
         const bshb = BSMB.BoschSmartHomeBridgeBuilder.builder()
           .withHost(config.host)
           .withClientCert(this.cert)
@@ -64,12 +60,12 @@ module.exports = NodeHelper.create({
       }
 
       const {
-        parsedResponse: services
-      } = await this.client.getDevicesServices().toPromise();
-
-      const {
         parsedResponse: devices
       } = await this.client.getDevices().toPromise();
+
+      const {
+        parsedResponse: services
+      } = await this.client.getDevicesServices().toPromise();
 
       for (const device of devices) {
         device.services = services.filter(
@@ -91,7 +87,7 @@ module.exports = NodeHelper.create({
         const data = fs.readFileSync(__dirname + "/debugResponse.json");
         this.rooms = JSON.parse(data);
       } else {
-        await this.generateClient(config);
+        await this.establishConnection(config);
         await this.loadData();
 
         if (config.debug) {
