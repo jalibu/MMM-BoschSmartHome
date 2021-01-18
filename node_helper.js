@@ -1,7 +1,6 @@
 const NodeHelper = require("node_helper");
 const fs = require("fs");
 const BSMB = require("bosch-smart-home-bridge");
-const { CanvasRenderService } = require("chartjs-node-canvas");
 
 module.exports = NodeHelper.create({
   cert: null,
