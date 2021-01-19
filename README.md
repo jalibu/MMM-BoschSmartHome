@@ -7,8 +7,10 @@ This module is a private and inofficial project without any relation to Robert B
 ## Features
 - Support for multiple rooms
 - Shutter Contacts
-- Climate Controls
+- Room Climate Controls
 - Thermostats
+- Twinguards
+- Visualization of Temperature, Humidity and Purity
 - Bosch Home Connect Dishwashers (experimental!)
 - Philips Hue Bridge
 - Languages: English, German
