@@ -38,7 +38,7 @@
 }
 .gauge-mask.bar .gauge-semi-circle {
   border-radius: unset;
-  height: 30%;
+  height: 100%;
   min-height: 1rem;
   max-height: 1.4rem;
 }
@@ -48,7 +48,7 @@
 .bar > .gauge-data {
   background: rgba(255, 255, 255, 1);
   position: unset;
-  height: 100%;
+  line-height: 30px;
 }
 
 .gauge-semi-circle--mask {
@@ -102,17 +102,17 @@
   background: linear-gradient(
     to right,
     #c0392b 0%,
-    #f1c40f 13%,
-    #1abc9c 40%,
-    #f1c40f 80%,
+    #f1c40f 15%,
+    #1abc9c 50%,
+    #f1c40f 85%,
     #c0392b 100%
   );
 }
 
 .gauge-semi-circle.temperature {
-  background: linear-gradient(to right, #1f456e 0%, #c0392b 100%);
+  background: linear-gradient(to right, #4682b4 0%, #c0392b 100%);
 }
 
 .gauge-semi-circle.purity {
-  background: linear-gradient(to right, #1abc9c 0%, #f1c40f 50%, #c0392b 100%);
+  background: linear-gradient(to right, #1abc9c 0%, #f1c40f 75%, #c0392b 100%);
 }

@@ -11,18 +11,20 @@ Module.register("MMM-BoschSmartHome", {
     identifier: "MMM-BoschSmartHome",
     password: "",
     width: "340px",
-    refreshIntervalInSeconds: 600,
+    refreshIntervalInSeconds: 60,
     displayRoomIcons: false,
     displayThermostats: false,
     airquality: {
-      purity: "chart",
-      humidity: "chart",
-      temperature: "chart"
+      purity: "bar",
+      humidity: "bar",
+      temperature: "bar",
+      preferredTemperatureProvider: "Twinguard",
+      preferredHumidityProvider: "Twinguard"
     }
   },
 
   getStyles() {
-    return ["font-awesome.css", "MMM-BoschSmartHome.css", "Gauge.css"];
+    return ["font-awesome.css", "MMM-BoschSmartHome.css", "Charts.css"];
   },
 
   getScripts() {

@@ -39,7 +39,7 @@
 
 .bsh-badge.climate-control.bsh-eco {
   color: #fff;
-  background-color: #1f456e;
+  background-color: #4682b4;
 }
 .bsh-badge.climate-control.bsh-comfort {
   color: #fff;
@@ -59,7 +59,7 @@
   grid-template-rows: auto;
   grid-gap: 4px;
 }
-.bsh-tile > i {
+.bsh-tile i {
   margin-right: 0.25rem;
 }
 .bsh-tile {

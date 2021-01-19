@@ -153,12 +153,11 @@ class BSHUtils {
     return result > 100 ? 100 : result;
   }
 
-  static getChartTemperaturePercentage(airQualityService) {
+  static getChartTemperaturePercentage(temperature, profile) {
     const perfectTemp =
-      airQualityService.state.comfortZone.maxTemperature -
-      (airQualityService.state.comfortZone.maxTemperature -
-        airQualityService.state.comfortZone.minTemperature);
-    const result = (airQualityService.state.temperature / perfectTemp) * 50;
+      profile.maxTemperature -
+      (profile.maxTemperature - profile.minTemperature);
+    const result = (temperature / perfectTemp) * 50;
 
     return result > 100 ? 100 : result;
   }

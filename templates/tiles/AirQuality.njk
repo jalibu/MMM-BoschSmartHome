@@ -1,5 +1,6 @@
 {% macro render(room, config, utils) %}
   {% set airQualityService = utils.getAirQualityService(room.devices) %}
+  {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
   {% if airQualityService %}
     {% if config.airquality.purity === "donut" or config.airquality.purity === "bar" %}
       <div class="bsh-tile airquality gauge-mask {{ config.airquality.purity }}">
@@ -17,56 +18,71 @@
         <i class="fas fa-lungs"></i>{{ airQualityService.state.purity.toFixed(0) }}ppm
       </div>
     {% endif %}
+  {% endif %}
 
+  {% if airQualityService and config.airquality.preferredTemperatureProvider === "Twinguard" %}
+    {% set temperature = airQualityService.state.temperature.toFixed(1) %}
+    {% set temperatureProfile = airQualityService.state.comfortZone %}
+    {% set temperatureRating = airQualityService.state.temperatureRating %}
+  {% elif temperatureLevelService %}
+    {% set temperature = temperatureLevelService.state.temperature %}
+    {% set temperatureProfile = {minTemperature: 20, maxTemperature: 25} %}
+    {% if temperatureLevelService.state.temperature < 14 or temperatureLevelService.state.temperature > 28 %}
+      {% set temperatureRating = "BAD" %}
+    {% elif temperatureLevelService.state.temperature < 18 or temperatureLevelService.state.temperature > 24 %}
+      {% set temperatureRating = "MEDIUM" %}
+    {% else %}
+      {% set temperatureRating = "GOOD" %}
+    {% endif %}
+  {% endif %}
+  {% if temperature %}
     {% if config.airquality.temperature === "donut" or config.airquality.temperature === "bar" %}
       <div class="bsh-tile airquality gauge-mask {{ config.airquality.temperature }}">
         <div class="gauge-semi-circle temperature">
-          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartTemperaturePercentage(airQualityService) }}%;"></div>
+          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartTemperaturePercentage(temperature, temperatureProfile) }}%;"></div>
         </div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartTemperaturePercentage(airQualityService) * 1.8 }}deg);"></div>
+        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartTemperaturePercentage(temperature, temperatureProfile) * 1.8 }}deg);"></div>
         <div class="gauge-data">
-          <div class="gauge-percent"><i class="fas fa-thermometer"></i>{{ airQualityService.state.temperature.toFixed(1) }}°C</div>
+          <div class="gauge-percent"><i class="fas fa-thermometer"></i>{{ temperature }}°C</div>
           <div class="gauge-label"></div>
         </div>
       </div>
     {% elif config.airquality.temperature === "tile" %}
-      <div class="bsh-tile airquality {{airQualityService.state.temperatureRating}}">
-        <i class="fas fa-thermometer"></i>{{ airQualityService.state.temperature.toFixed(1) }}°C
+      <div class="bsh-tile airquality {{ temperatureRating }}">
+        <i class="fas fa-thermometer"></i>{{ temperature }}°C
       </div>
     {% endif %}
+  {% endif %}
 
-    {% if config.airquality.humidity === "donut" or config.airquality.humidity === "bar" %}
+
+  {% if airQualityService and config.airquality.preferredHumidityProvider === "Twinguard" %}
+    {% set humidity = airQualityService.state.humidity.toFixed(1) %}
+    {% set humidityRating = airQualityService.state.humidityRating %}
+  {% elif room.extProperties.humidity %}
+    {% set humidity = room.extProperties.humidity %}
+    {% if room.extProperties.humidity < 30 or room.extProperties.humidity > 75 %}
+      {% set humidityRating = "BAD" %}
+    {% elif room.extProperties.humidity < 40 or room.extProperties.humidity > 62 %}
+      {% set humidityRating = "MEDIUM" %}
+    {% else %}
+      {% set humidityRating = "GOOD" %}
+    {% endif %}
+  {% endif %}
+  {% if humidity %}
+   {% if config.airquality.humidity === "donut" or config.airquality.humidity === "bar" %}
       <div class="bsh-tile airquality gauge-mask {{ config.airquality.humidity }}">
         <div class="gauge-semi-circle humidity">
-          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartHumidityPercentage(airQualityService.state.humidity) }}%;"></div>
+          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartHumidityPercentage(humidity) }}%;"></div>
         </div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartHumidityPercentage(airQualityService.state.humidity) * 1.8 }}deg);"></div>
+        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartHumidityPercentage(humidity) * 1.8 }}deg);"></div>
         <div class="gauge-data">
-          <div class="gauge-percent"><i class="fas fa-tint"></i>{{ airQualityService.state.humidity.toFixed(0) }}%</div>
+          <div class="gauge-percent"><i class="fas fa-tint"></i>{{ humidity }}%</div>
           <div class="gauge-label"></div>
         </div>
       </div>
     {% elif config.airquality.humidity === "tile" %}
-      <div class="bsh-tile airquality {{airQualityService.state.humidityRating}}">
-        <i class="fas fa-tint"></i>{{ airQualityService.state.humidity.toFixed(0) }}%
-      </div>
-    {% endif %}
-
-  {% elif room.extProperties.humidity %}
-    {% if config.airquality.humidity === "donut" and config.airquality.humidity === "bar"%}
-      <div class="bsh-tile airquality gauge-mask {{ config.airquality.purity }}">
-        <div class="gauge-semi-circle humidity">
-          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - (utils.getChartHumidityPercentage(room.extProperties.humidity) * 100) }}%;"></div>
-        </div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartHumidityPercentage(room.extProperties.humidity) * 1.8 }}deg);"></div>
-        <div class="gauge-data">
-          <div class="gauge-percent"><i class="fas fa-tint"></i>{{ room.extProperties.humidity }}%</div>
-          <div class="gauge-label"></div>
-        </div>
-      </div>
-    {% elif config.airquality.humidity === "tile" %}
-      <div class="bsh-tile airquality">
-        <i class="fas fa-tint"></i>{{ room.extProperties.humidity }}%
+      <div class="bsh-tile airquality {{ humidityRating }}">
+        <i class="fas fa-tint"></i>{{ humidity }}%
       </div>
     {% endif %}
   {% endif %}
