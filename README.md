@@ -9,6 +9,9 @@ This module is a private and inofficial project without any relation to Robert B
 - Shutter Contacts
 - Climate Controls
 - Thermostats
+- Bosch Home Connect Dishwashers (experimental!)
+- Philips Hue Bridge
+- Languages: English, German
 
 ## Installing the Module
 1) Navigate to the MagicMirror subfolder "modules" and execute the following command
