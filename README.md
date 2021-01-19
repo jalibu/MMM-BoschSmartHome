@@ -23,13 +23,13 @@ This module is a private and inofficial project without any relation to Robert B
 4) Add config entry to MagicMirror/config/config.js
 ```javascript
 {
-	module: "MMM-BoschSmartHome",
-	position: "top_left",
-	config: {
-	  host: "192.168.0.150", // Bosch Smart Home Bridge's local IP Address
-	  name: "MMM-BoschSmartHome", // Display name for App
-	  identifier: "MMM-BoschSmartHome", // Unique Identifier for app
-	  password: "", // Password for Bosch Smart Home Bridge
+  module: "MMM-BoschSmartHome",
+  position: "top_left",
+  config: {
+    host: "192.168.0.150", // Bosch Smart Home Bridge's local IP Address
+    name: "MMM-BoschSmartHome", // Display name for App
+    identifier: "MMM-BoschSmartHome", // Unique Identifier for app
+    password: "", // Password for Bosch Smart Home Bridge
     refreshIntervalInSeconds: 60, // Default: 60
     width: "340px",
     displayRoomIcons: false, // Default: false
@@ -41,7 +41,7 @@ This module is a private and inofficial project without any relation to Robert B
       preferredTemperatureProvider: "Twinguard", // Twinguard or ClimateControl. Default: Twinguard, but falls back to CC
       preferredHumidityProvider: "Twinguard" // Twinguard or ClimateControl. Default: Twinguard, but falls back to CC
     }
-	}
+  }
 }
 ```
 5) Important: When the module is started for the first time, a pairing between the MagicMirror and the Bosch Smart Home Bridge is automatically created with the generated certificate. For this to work, you must press the pairing button on the bridge for 5 seconds until it starts flashing. Then startup MagicMirror. This only has to be done once.
