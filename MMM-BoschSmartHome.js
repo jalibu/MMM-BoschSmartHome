@@ -15,11 +15,11 @@ Module.register("MMM-BoschSmartHome", {
     displayRoomIcons: false,
     displayThermostats: false,
     airquality: {
-      purity: "bar",
-      humidity: "bar",
-      temperature: "bar",
-      preferredTemperatureProvider: "Twinguard",
-      preferredHumidityProvider: "Twinguard"
+      purity: "bar", // one of [tile, bar, donut, none]
+      humidity: "bar", // one of [tile, bar, donut, none]
+      temperature: "bar", // one of [tile, bar, donut, none]
+      preferredTemperatureProvider: "Twinguard", // Twinguard or ClimateControl
+      preferredHumidityProvider: "Twinguard" // Twinguard or ClimateControl
     }
   },
 
