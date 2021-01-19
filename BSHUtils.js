@@ -140,27 +140,26 @@ class BSHUtils {
     return service;
   }
 
-  static getChartDegreeHumidity(humidity) {
-    const result = humidity * 1.8;
-    return result > 180 ? 180 : result;
+  static getChartHumidityPercentage(humidity) {
+    return humidity > 100 ? 100 : humidity;
   }
 
-  static getChartDegreePurity(airQualityService) {
+  static getChartPurityPercentage(airQualityService) {
     const result =
       (airQualityService.state.purity /
         airQualityService.state.comfortZone.maxPurity) *
-      90;
+      50;
 
-    return result > 180 ? 180 : result;
+    return result > 100 ? 100 : result;
   }
 
-  static getChartDegreeTemperature(airQualityService) {
+  static getChartTemperaturePercentage(airQualityService) {
     const perfectTemp =
       airQualityService.state.comfortZone.maxTemperature -
       (airQualityService.state.comfortZone.maxTemperature -
         airQualityService.state.comfortZone.minTemperature);
-    const result = (airQualityService.state.temperature / perfectTemp) * 90;
-    console.log(airQualityService);
-    return result > 180 ? 180 : result;
+    const result = (airQualityService.state.temperature / perfectTemp) * 50;
+
+    return result > 100 ? 100 : result;
   }
 }

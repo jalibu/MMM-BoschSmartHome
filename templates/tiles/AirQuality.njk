@@ -1,10 +1,12 @@
 {% macro render(room, config, utils) %}
   {% set airQualityService = utils.getAirQualityService(room.devices) %}
   {% if airQualityService %}
-    {% if config.airquality.purity === "chart" %}
-      <div class="bsh-tile airquality gauge-mask">
-        <div class="gauge-semi-circle purity"></div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartDegreePurity(airQualityService) }}deg);"></div>
+    {% if config.airquality.purity === "donut" or config.airquality.purity === "bar" %}
+      <div class="bsh-tile airquality gauge-mask {{ config.airquality.purity }}">
+        <div class="gauge-semi-circle purity">
+          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartPurityPercentage(airQualityService) }}%;"></div>
+        </div>
+        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartPurityPercentage(airQualityService) * 1.8 }}deg);"></div>
         <div class="gauge-data">
           <div class="gauge-percent"><i class="fas fa-lungs"></i>{{ airQualityService.state.purity.toFixed(0) }}ppm</div>
           <div class="gauge-label"></div>
@@ -16,10 +18,12 @@
       </div>
     {% endif %}
 
-    {% if config.airquality.temperature === "chart" %}
-      <div class="bsh-tile airquality gauge-mask">
-        <div class="gauge-semi-circle temperature"></div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartDegreeTemperature(airQualityService) }}deg);"></div>
+    {% if config.airquality.temperature === "donut" or config.airquality.temperature === "bar" %}
+      <div class="bsh-tile airquality gauge-mask {{ config.airquality.temperature }}">
+        <div class="gauge-semi-circle temperature">
+          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartTemperaturePercentage(airQualityService) }}%;"></div>
+        </div>
+        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartTemperaturePercentage(airQualityService) * 1.8 }}deg);"></div>
         <div class="gauge-data">
           <div class="gauge-percent"><i class="fas fa-thermometer"></i>{{ airQualityService.state.temperature.toFixed(1) }}°C</div>
           <div class="gauge-label"></div>
@@ -31,26 +35,30 @@
       </div>
     {% endif %}
 
-    {% if config.airquality.humidity === "chart" %}
-      <div class="bsh-tile airquality gauge-mask">
-        <div class="gauge-semi-circle humidity"></div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartDegreeHumidity(airQualityService.state.humidity) }}deg);"></div>
+    {% if config.airquality.humidity === "donut" or config.airquality.humidity === "bar" %}
+      <div class="bsh-tile airquality gauge-mask {{ config.airquality.humidity }}">
+        <div class="gauge-semi-circle humidity">
+          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartHumidityPercentage(airQualityService.state.humidity) }}%;"></div>
+        </div>
+        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartHumidityPercentage(airQualityService.state.humidity) * 1.8 }}deg);"></div>
         <div class="gauge-data">
           <div class="gauge-percent"><i class="fas fa-tint"></i>{{ airQualityService.state.humidity.toFixed(0) }}%</div>
           <div class="gauge-label"></div>
         </div>
       </div>
-    {% elif config.airquality.humidity === "chart" %}
+    {% elif config.airquality.humidity === "tile" %}
       <div class="bsh-tile airquality {{airQualityService.state.humidityRating}}">
         <i class="fas fa-tint"></i>{{ airQualityService.state.humidity.toFixed(0) }}%
       </div>
     {% endif %}
 
   {% elif room.extProperties.humidity %}
-    {% if config.airquality.humidity === "chart" %}
-      <div class="bsh-tile airquality gauge-mask">
-        <div class="gauge-semi-circle humidity"></div>
-        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartDegreeHumidity(room.extProperties.humidity) }}deg);"></div>
+    {% if config.airquality.humidity === "donut" and config.airquality.humidity === "bar"%}
+      <div class="bsh-tile airquality gauge-mask {{ config.airquality.purity }}">
+        <div class="gauge-semi-circle humidity">
+          <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - (utils.getChartHumidityPercentage(room.extProperties.humidity) * 100) }}%;"></div>
+        </div>
+        <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartHumidityPercentage(room.extProperties.humidity) * 1.8 }}deg);"></div>
         <div class="gauge-data">
           <div class="gauge-percent"><i class="fas fa-tint"></i>{{ room.extProperties.humidity }}%</div>
           <div class="gauge-label"></div>
