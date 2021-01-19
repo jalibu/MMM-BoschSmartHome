@@ -79,6 +79,7 @@
   grid-column: 1 / span 3;
   justify-content: space-evenly;
   align-items: flex-end;
+  padding-top: 4px;
 }
 
 .bsh-tile.temperature span.setpoint-temperature {
@@ -89,6 +90,11 @@
   font-size: 1.8rem;
   font-weight: bold;
 }
+.bsh-tile.airquality {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 .bsh-tile.airquality.GOOD {
   background-color: #239b56;
 }

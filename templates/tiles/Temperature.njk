@@ -1,6 +1,6 @@
 {% import "templates/tiles/_Tile.njk" as tile %}
 
-{% macro render(room, utils) %}
+{% macro render(room, config, utils) %}
   {% set climateControlService = utils.getClimateControlService(room.devices) %}
   {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
   {% if climateControlService and temperatureLevelService %}

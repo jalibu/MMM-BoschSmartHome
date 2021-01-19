@@ -2,6 +2,6 @@
 
 {% macro render(room, utils) %}
   {% if utils.getOpenShutters(room.devices).length > 0 %}
-    {{ badge.render('<i class="fas fa-wind"></i>') }}
+    {{ badge.render('<i class="fas fa-wind icon-only"></i>') }}
   {% endif %}
 {% endmacro %}

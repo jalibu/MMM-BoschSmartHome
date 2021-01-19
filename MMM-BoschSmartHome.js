@@ -11,20 +11,22 @@ Module.register("MMM-BoschSmartHome", {
     identifier: "MMM-BoschSmartHome",
     password: "",
     width: "340px",
-    refreshIntervalInSeconds: 60,
-    displayCharts: false,
-    displayRoomIcons: false
+    refreshIntervalInSeconds: 600,
+    displayRoomIcons: false,
+    displayThermostats: false,
+    airquality: {
+      purity: "chart",
+      humidity: "chart",
+      temperature: "chart"
+    }
   },
 
   getStyles() {
-    return ["font-awesome.css", "MMM-BoschSmartHome.css"];
+    return ["font-awesome.css", "MMM-BoschSmartHome.css", "Gauge.css"];
   },
 
   getScripts() {
-    return [
-      this.file("BSHUtils.js"),
-      this.file("node_modules/chart.js/dist/Chart.min.js")
-    ];
+    return [this.file("BSHUtils.js")];
   },
 
   getTranslations() {
