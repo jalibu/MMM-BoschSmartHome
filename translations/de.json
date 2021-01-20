@@ -1,4 +1,9 @@
 {
   "TEMPERATURE_IS": "IST",
-  "TEMPERATURE_TARGET": "SOLL"
+  "TEMPERATURE_TARGET": "SOLL",
+  "OP_MODE_AUTO": "Auto",
+  "OP_MODE_MANUAL": "Manuell",
+  "OP_MODE_BOOST": "Boost",
+  "OP_MODE_SUMMER": "Aus",
+  "OP_MODE_LOW": "Low"
 }

@@ -5,6 +5,9 @@
 
     {% if climateControlService.state.operationMode == "AUTOMATIC" %}
       {% set icon = '<i class="far fa-clock"></i>' %}
+      {% set operationText %}
+          {{ "OP_MODE_AUTO" | translate | safe }}
+        {% endset %}
       {% if climateControlService.state.setpointTemperature == climateControlService.state.setpointTemperatureForLevelComfort %}
         {% set operationMode = "bsh-comfort" %}
       {% elif climateControlService.state.setpointTemperature == climateControlService.state.setpointTemperatureForLevelEco %}
@@ -13,17 +16,35 @@
         {% set operationMode = "bsh-manual" %}
       {% endif %}
     {% else %}
-      {% set icon = '<i class="fas fa-user-cog"></i>' %}
-      {% set operationMode = "bsh-manual" %}
+      {% if climateControlService.state.low %}
+        {% set icon = '<i class="fas fa-arrow-down"></i>' %}
+        {% set operationMode = "bsh-eco" %}
+        {% set operationText %}
+          {{ "OP_MODE_LOW" | translate | safe }}
+        {% endset %}
+      {% elif climateControlService.state.summermode %}
+        {% set icon = '<i class="fas fa-user-cog"></i>' %}
+        {% set operationMode = "bsh-manual" %}
+        {% set operationText %}
+          {{ "OP_MODE_SUMMER" | translate | safe }}
+        {% endset %}
+      {% elif climateControlService.state.boostmode %}
+        {% set icon = '<i class="fas fa-arrow-down"></i>' %}
+        {% set operationMode = "bsh-comfort" %}
+        {% set operationText %}
+          {{ "OP_MODE_BOOST" | translate | safe }}
+        {% endset %}
+      {% else %}
+        {% set icon = '<i class="fas fa-user-cog"></i>' %}
+        {% set operationMode = "bsh-manual" %}
+        {% set operationText %}
+          {{ "OP_MODE_MANUAL" | translate | safe }}
+        {% endset %}
+      {% endif %}
     {% endif %}
 
     <span class="bsh-badge climate-control {{ operationMode }}">
-    {{ icon | safe }}
-    {% if climateControlService.state.operationMode == "AUTOMATIC" %}
-      AUTO
-    {% else %}
-      MANUAL
-    {% endif %}
+    {{ icon | safe }} {{ operationText }}
     </span>
   {% endif %}
 {% endmacro %}
