@@ -1,5 +1,15 @@
-class BSHUtils {
-  static getRoomIcon(iconId) {
+import { Device, ShutterContactDevice } from "../models/Device";
+import {
+  BatteryLevelService,
+  BinarySwitchService,
+  ShutterContactService,
+  TemperatureLevelService,
+  AirQualityService,
+  ValveTappetService
+} from "../models/Service";
+
+export default class BSHUtils {
+  static getRoomIcon(iconId: string) {
     switch (iconId) {
       case "icon_room_bathroom":
         return "fa-bath";
@@ -14,11 +24,11 @@ class BSHUtils {
     }
   }
 
-  static getLowBatteryDevices(devices) {
+  static getLowBatteryDevices(devices: Device[]) {
     const response = [];
 
     for (const device of devices) {
-      const batteryLevelService = device.services.find(
+      const batteryLevelService: BatteryLevelService = device.services.find(
         (service) => service.id === "BatteryLevel"
       );
 
@@ -29,13 +39,13 @@ class BSHUtils {
     return response;
   }
 
-  static getSwitchedOnHueDevices(devices) {
+  static getSwitchedOnHueDevices(devices: Device[]) {
     const hueLights = devices.filter(
       (device) => device.deviceModel === "HUE_LIGHT"
     );
-    let switchedOnDevices = [];
+    let switchedOnDevices: string[] = [];
     hueLights.forEach((hueLight) => {
-      const binarySwitchService = hueLight.services.find(
+      const binarySwitchService: BinarySwitchService = hueLight.services.find(
         (service) => service.id === "BinarySwitch"
       );
       if (
@@ -48,13 +58,13 @@ class BSHUtils {
     return switchedOnDevices;
   }
 
-  static getOpenShutters(devices) {
-    const shutterContactDevices = devices.filter(
+  static getOpenShutters(devices: Device[]) {
+    const shutterContactDevices: ShutterContactDevice[] = devices.filter(
       (device) => device.deviceModel === "SWD"
     );
-    let openShutters = [];
+    let openShutters: string[] = [];
     shutterContactDevices.forEach((shutterContactDevice) => {
-      const shutterContactService = shutterContactDevice.services.find(
+      const shutterContactService: ShutterContactService = shutterContactDevice.services.find(
         (service) => service.id === "ShutterContact"
       );
       if (
@@ -68,7 +78,7 @@ class BSHUtils {
     return openShutters;
   }
 
-  static getClimateControlService(devices) {
+  static getClimateControlService(devices: Device[]) {
     const climateControlDevice = devices.find(
       (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
     );
@@ -79,7 +89,7 @@ class BSHUtils {
     );
   }
 
-  static getTemperatureLevelService(devices) {
+  static getTemperatureLevelService(devices: Device[]) {
     const climateControlDevice = devices.find(
       (device) => device.deviceModel === "ROOM_CLIMATE_CONTROL"
     );
@@ -90,7 +100,7 @@ class BSHUtils {
     );
   }
 
-  static getAirQualityService(devices) {
+  static getAirQualityService(devices: Device[]) {
     const twinguardDevice = devices.find(
       (device) => device.deviceModel === "TWINGUARD"
     );
@@ -101,17 +111,20 @@ class BSHUtils {
     );
   }
 
-  static getThermostatServices(devices) {
+  static getThermostatServices(devices: Device[]) {
     let temperatureLevelDevices = devices.filter(
       (device) => device.deviceModel === "TRV"
     );
 
     if (!temperatureLevelDevices) return;
 
-    const services = [];
+    const services: {
+      temperatureLevelService: TemperatureLevelService;
+      valveTappetService: ValveTappetService;
+    }[] = [];
 
     temperatureLevelDevices.forEach((temperatureLevelDevice) => {
-      const temperatureLevelService = temperatureLevelDevice.services.find(
+      const temperatureLevelService: TemperatureLevelService = temperatureLevelDevice.services.find(
         (service) => service.id === "TemperatureLevel"
       );
 
@@ -124,7 +137,7 @@ class BSHUtils {
     return services;
   }
 
-  static getDishWasherService(devices) {
+  static getDishWasherService(devices: Device[]) {
     let dishwasherDevice = devices.find(
       (device) => device.deviceModel === "HOMECONNECT_DISHWASHER"
     );
@@ -140,11 +153,11 @@ class BSHUtils {
     return service;
   }
 
-  static getChartHumidityPercentage(humidity) {
+  static getChartHumidityPercentage(humidity: number) {
     return humidity > 100 ? 100 : humidity;
   }
 
-  static getChartPurityPercentage(airQualityService) {
+  static getChartPurityPercentage(airQualityService: AirQualityService) {
     const result =
       (airQualityService.state.purity /
         airQualityService.state.comfortZone.maxPurity) *
@@ -153,7 +166,7 @@ class BSHUtils {
     return result > 100 ? 100 : result;
   }
 
-  static getChartTemperaturePercentage(temperature, profile) {
+  static getChartTemperaturePercentage(temperature: number, profile: any) {
     const perfectTemp =
       profile.maxTemperature -
       (profile.maxTemperature - profile.minTemperature);
