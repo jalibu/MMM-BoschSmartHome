@@ -5,7 +5,8 @@ import {
   ShutterContactService,
   TemperatureLevelService,
   AirQualityService,
-  ValveTappetService
+  ValveTappetService,
+  ComfortZone
 } from "../models/Service";
 
 export default class BSHUtils {
@@ -19,6 +20,8 @@ export default class BSHUtils {
         return "fa-briefcase";
       case "icon_room_living_room":
         return "fa-couch";
+      case "icon_room_dining_room":
+        return "fa-utensils";
       default:
         return "fa-house-user";
     }
@@ -166,7 +169,12 @@ export default class BSHUtils {
     return result > 100 ? 100 : result;
   }
 
-  static getChartTemperaturePercentage(temperature: number, profile: any) {
+  static getChartTemperaturePercentage(
+    temperature: number,
+    profile: ComfortZone
+  ) {
+    if (!profile || !temperature) return null;
+    console.log("profile", profile, temperature);
     const perfectTemp =
       profile.maxTemperature -
       (profile.maxTemperature - profile.minTemperature);

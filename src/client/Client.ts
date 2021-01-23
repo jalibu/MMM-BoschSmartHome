@@ -1,22 +1,5 @@
 import Utils from "./Utils";
 import { Config } from "../models/Config";
-declare const Module: {
-  register(
-    moduleName: string,
-    moduleProperties: {
-      defaults: Config;
-      getStyles: Function;
-      getTranslations: Function;
-      getTemplate: Function;
-      getTemplateData: Function;
-      getHeader: Function;
-      start: Function;
-      scheduleUpdate: Function;
-      loadData: Function;
-      socketNotificationReceived: Function;
-    }
-  ): void;
-};
 
 Module.register("MMM-BoschSmartHome", {
   defaults: {
@@ -38,7 +21,7 @@ Module.register("MMM-BoschSmartHome", {
       preferredTemperatureProvider: "Twinguard", // Twinguard or ClimateControl
       preferredHumidityProvider: "Twinguard" // Twinguard or ClimateControl
     }
-  },
+  } as Config,
 
   getStyles() {
     return ["font-awesome.css", "MMM-BoschSmartHome.css"];
@@ -95,8 +78,8 @@ Module.register("MMM-BoschSmartHome", {
     if (notificationIdentifier === "STATUS_RESULT") {
       this.error = null;
       this.rooms = payload;
-      console.log(this.rooms);
       this.updateDom();
+      console.log(this.rooms);
     } else if (notificationIdentifier === "ERROR") {
       this.error = payload;
       this.updateDom();

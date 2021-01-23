@@ -24,5 +24,15 @@ export interface ValveTappetService extends Service {
 }
 
 export interface AirQualityService extends Service {
-  state?: { purity: number; comfortZone: { maxPurity: number } };
+  state?: { purity: number; comfortZone: ComfortZone };
 }
+
+export type ComfortZone = {
+  custom?: boolean;
+  maxHumidity?: number;
+  maxPurity?: number;
+  maxTemperature?: number;
+  minHumidity?: number;
+  minTemperature?: number;
+  name?: string;
+};
