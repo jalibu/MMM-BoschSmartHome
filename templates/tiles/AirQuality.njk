@@ -1,4 +1,4 @@
-{% macro render(room, config, utils) %}
+{% macro render(room) %}
   {% set airQualityService = utils.getAirQualityService(room.devices) %}
   {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
   {% if airQualityService %}

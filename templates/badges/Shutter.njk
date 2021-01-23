@@ -1,6 +1,6 @@
-{% import "templates/badges/_Badge.njk" as badge %}
+{% import "templates/badges/_Badge.njk" as badge with context %}
 
-{% macro render(room, utils) %}
+{% macro render(room) %}
   {% if utils.getOpenShutters(room.devices).length > 0 %}
     {{ badge.render('<i class="fas fa-wind icon-only"></i>') }}
   {% endif %}

@@ -1,6 +1,6 @@
-{% import "templates/tiles/_Tile.njk" as tile %}
+{% import "templates/tiles/_Tile.njk" as tile with context %}
 
-{% macro render(room, config, utils) %}
+{% macro render(room) %}
   {% if config.displayThermostats %}
     {% set thermostatServices = utils.getThermostatServices(room.devices) %}
     {% if thermostatServices %}

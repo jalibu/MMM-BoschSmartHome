@@ -1,8 +1,8 @@
-{% import "templates/badges/IconBadges.njk" as iconBadges %}
-{% import "templates/badges/ClimateControl.njk" as climateControlBadge %}
-{% import "templates/tiles/Tiles.njk" as tiles %}
+{% import "templates/badges/IconBadges.njk" as iconBadges with context %}
+{% import "templates/badges/ClimateControl.njk" as climateControlBadge with context %}
+{% import "templates/tiles/Tiles.njk" as tiles with context %}
 
-{% macro render(room, config, utils) %}
+{% macro render(room) %}
   <div class='bsh-room-wrapper'>
     <div class="bsh-room-title">
       {% if config.displayRoomIcons %}
