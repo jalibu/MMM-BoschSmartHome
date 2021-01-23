@@ -14,6 +14,7 @@ Module.register("MMM-BoschSmartHome", {
     refreshIntervalInSeconds: 60,
     displayRoomIcons: false,
     displayThermostats: false,
+    hideComponents: {}, // see README.md
     airquality: {
       purity: "bar", // one of [tile, bar, donut, none]
       humidity: "bar", // one of [tile, bar, donut, none]

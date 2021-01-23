@@ -1,4 +1,6 @@
 import { Device, ShutterContactDevice } from "../models/Device";
+import { Config } from "../models/Config";
+import { Room } from "../models/Room";
 import {
   BatteryLevelService,
   BinarySwitchService,
@@ -174,12 +176,19 @@ export default class BSHUtils {
     profile: ComfortZone
   ) {
     if (!profile || !temperature) return null;
-    console.log("profile", profile, temperature);
+
     const perfectTemp =
       profile.maxTemperature -
       (profile.maxTemperature - profile.minTemperature);
     const result = (temperature / perfectTemp) * 50;
 
     return result > 100 ? 100 : result;
+  }
+
+  static isHidden(room: Room, componentType: string, config: Config): boolean {
+    return (
+      config.hideComponents[room.name] &&
+      config.hideComponents[room.name].indexOf(componentType) >= 0
+    );
   }
 }

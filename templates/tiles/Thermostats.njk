@@ -1,23 +1,25 @@
 {% import "templates/tiles/_Tile.njk" as tile with context %}
 
 {% macro render(room) %}
-  {% if config.displayThermostats %}
-    {% set thermostatServices = utils.getThermostatServices(room.devices) %}
-    {% if thermostatServices %}
-        {% for thermostat in thermostatServices %}
-          {% if thermostat.valveTappetService.state.position > 30 %}
-            {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
-          {% elif thermostat.valveTappetService.state.position > 20 %}
-            {% set icon = '<i class="fas fa-thermometer-three-quarters"></i>' %}
-          {% elif thermostat.valveTappetService.state.position > 10 %}
-            {% set icon = '<i class="fas fa-thermometer-half"></i>' %}
-          {% elif thermostat.valveTappetService.state.position > 5 %}
-            {% set icon = '<i class="fas fa-thermometer-quarter"></i>' %}
-          {% else %}
-            {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
-          {% endif %}
-          {{ tile.render('temperature-level', icon + thermostat.temperatureLevelService.state.temperature + '°C') }}
-        {% endfor %}
+  {% if not utils.isHidden(room, "thermostats", config) %}
+    {% if config.displayThermostats %}
+      {% set thermostatServices = utils.getThermostatServices(room.devices) %}
+      {% if thermostatServices %}
+          {% for thermostat in thermostatServices %}
+            {% if thermostat.valveTappetService.state.position > 30 %}
+              {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
+            {% elif thermostat.valveTappetService.state.position > 20 %}
+              {% set icon = '<i class="fas fa-thermometer-three-quarters"></i>' %}
+            {% elif thermostat.valveTappetService.state.position > 10 %}
+              {% set icon = '<i class="fas fa-thermometer-half"></i>' %}
+            {% elif thermostat.valveTappetService.state.position > 5 %}
+              {% set icon = '<i class="fas fa-thermometer-quarter"></i>' %}
+            {% else %}
+              {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
+            {% endif %}
+            {{ tile.render('temperature-level', icon + thermostat.temperatureLevelService.state.temperature + '°C') }}
+          {% endfor %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endmacro %}

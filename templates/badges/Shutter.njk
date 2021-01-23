@@ -1,7 +1,9 @@
 {% import "templates/badges/_Badge.njk" as badge with context %}
 
 {% macro render(room) %}
-  {% if utils.getOpenShutters(room.devices).length > 0 %}
-    {{ badge.render('<i class="fas fa-wind icon-only"></i>') }}
+  {% if not utils.isHidden(room, "shutters", config) %}
+    {% if utils.getOpenShutters(room.devices).length > 0 %}
+      {{ badge.render('<i class="fas fa-wind icon-only"></i>') }}
+    {% endif %}
   {% endif %}
 {% endmacro %}

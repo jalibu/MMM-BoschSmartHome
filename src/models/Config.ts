@@ -7,6 +7,7 @@ export type Config = {
   identifier: string;
   password: string;
   width: string;
+  hideComponents: any;
   refreshIntervalInSeconds: number;
   displayRoomIcons: boolean;
   displayThermostats: boolean;

@@ -1,28 +1,19 @@
 {% import "templates/tiles/_Tile.njk" as tile with context %}
 
 {% macro render(room) %}
-  {% set climateControlService = utils.getClimateControlService(room.devices) %}
-  {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
-  {% if climateControlService and temperatureLevelService %}
+  {% if not utils.isHidden(room, "temperatureLevel", config) %}
+    {% set climateControlService = utils.getClimateControlService(room.devices) %}
+    {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
+    {% if climateControlService and temperatureLevelService %}
 
-  {# Let's skip that for a moment
-    {% if climateControlService.state.operationMode == "AUTOMATIC" %}
-      {% set icon = "" %}
-      {% if climateControlService.state.setpointTemperature !== climateControlService.state.setpointTemperatureForLevelComfort and
-            climateControlService.state.setpointTemperature !== climateControlService.state.setpointTemperatureForLevelEco %}
-        {% set icon = "<i class='fas fa-hand-point-up'></i>" %}
-      {% endif %}
-    {% else %}
-      {% set icon = "<i class='fas fa-hand-point-up'></i>" %}
+      <div class="bsh-tile temperature tile-row">
+        <div>
+        {{ "TEMPERATURE_IS" | translate | safe}} <span class="room-temperature"> {{ temperatureLevelService.state.temperature }}°C</span>
+        </div>
+        <div>
+        {{ "TEMPERATURE_TARGET" | translate | safe }} <span class="setpoint-temperature">{{ climateControlService.state.setpointTemperature }}°C {{ icon | safe}}</span>
+        </div>
+      </div>
     {% endif %}
-  #}
-    <div class="bsh-tile temperature tile-row">
-      <div>
-      {{ "TEMPERATURE_IS" | translate | safe}} <span class="room-temperature"> {{ temperatureLevelService.state.temperature }}°C</span>
-      </div>
-      <div>
-      {{ "TEMPERATURE_TARGET" | translate | safe }} <span class="setpoint-temperature">{{ climateControlService.state.setpointTemperature }}°C {{ icon | safe}}</span>
-      </div>
-    </div>
   {% endif %}
 {% endmacro %}

@@ -41,6 +41,7 @@ Contribution welcome.
     width: "340px",
     displayRoomIcons: false, // Default: false
     displayThermostats: false, // Default: false
+    hideComponents: {}, // See example below. Default: {}
     airquality: {
       purity: "bar", // one of [tile, bar, donut, none]. Default: bar
       humidity: "bar", // one of [tile, bar, donut, none]. Default: bar
@@ -51,6 +52,17 @@ Contribution welcome.
   }
 }
 ```
+You can hide individual components per room. Check sample for possible values:
+```javascript
+config: {
+  hideComponents: {
+    "Livingroom": ["temperature", "purity", "humidity"],
+    "Bed Room": ["battery", "climateControl", "temperatureLevel", "hue"],
+    "Kitchen": ["shutters", "dishwasher", "thermostats"]
+    }
+}
+```
+
 5) Important: When the module is started for the first time, a pairing between the MagicMirror and the Bosch Smart Home Bridge is automatically created with the generated certificate. For this to work, you must press the pairing button on the bridge for 5 seconds until it starts flashing. Then startup MagicMirror. This only has to be done once.
 
 ### Thanks to
