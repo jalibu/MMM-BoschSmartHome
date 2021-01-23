@@ -3,23 +3,25 @@
 {% import "templates/tiles/Tiles.njk" as tiles with context %}
 
 {% macro render(room) %}
-  <div class='bsh-room-wrapper'>
-    <div class="bsh-room-title">
-      {% if config.displayRoomIcons %}
-        <span class="bsh-room-icon">
-          <i class="fas {{ utils.getRoomIcon(room.iconId) }}"></i>
+  {% if not utils.isHidden(room, "room", config) %}
+    <div class='bsh-room-wrapper'>
+      <div class="bsh-room-title">
+        {% if config.displayRoomIcons %}
+          <span class="bsh-room-icon">
+            <i class="fas {{ utils.getRoomIcon(room.iconId) }}"></i>
+          </span>
+        {% endif %}
+        <span class="bsh-title-left">
+          <span class="bsh-room-name">
+            {{room.name}}
+          </span>
+          {{ climateControlBadge.render(room, utils) }}
         </span>
-      {% endif %}
-      <span class="bsh-title-left">
-        <span class="bsh-room-name">
-          {{room.name}}
+        <span class="bsh-badges bsh-title-right">
+          {{ iconBadges.render(room, utils)}}
         </span>
-        {{ climateControlBadge.render(room, utils) }}
-      </span>
-      <span class="bsh-badges bsh-title-right">
-        {{ iconBadges.render(room, utils)}}
-      </span>
+      </div>
+      {{ tiles.render(room, config, utils) }}
     </div>
-    {{ tiles.render(room, config, utils) }}
-  </div>
+  {% endif %}
 {% endmacro %}

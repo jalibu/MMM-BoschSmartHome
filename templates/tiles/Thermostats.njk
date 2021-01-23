@@ -1,8 +1,6 @@
-{% import "templates/tiles/_Tile.njk" as tile with context %}
-
 {% macro render(room) %}
   {% if not utils.isHidden(room, "thermostats", config) %}
-    {% if config.displayThermostats %}
+    {% if config.thermostats.display %}
       {% set thermostatServices = utils.getThermostatServices(room.devices) %}
       {% if thermostatServices %}
           {% for thermostat in thermostatServices %}
@@ -17,7 +15,12 @@
             {% else %}
               {% set icon = '<i class="fas fa-thermometer-full"></i>' %}
             {% endif %}
-            {{ tile.render('temperature-level', icon + thermostat.temperatureLevelService.state.temperature + '°C') }}
+            <div class="bsh-tile temperature-level">
+              {{ icon | safe}} {{ thermostat.temperatureLevelService.state.temperature }}°C
+              {% if config.thermostats.displayName %}
+                {{thermostat.name}}
+              {% endif %}
+            </div>
           {% endfor %}
       {% endif %}
     {% endif %}

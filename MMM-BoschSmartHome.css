@@ -80,11 +80,11 @@
   padding-top: 4px;
 }
 
-.bsh-tile.temperature span.setpoint-temperature {
+.bsh-tile.temperature-level span.setpoint-temperature {
   font-size: 1.8rem;
 }
 
-.bsh-tile.temperature span.room-temperature {
+.bsh-tile.temperature-level span.room-temperature {
   font-size: 1.8rem;
   font-weight: bold;
 }
@@ -126,7 +126,7 @@
   z-index: 2;
   display: block;
   width: 4rem;
-  height: 2rem;
+  height: 70%;
   margin-left: -2rem;
   background: rgba(255, 255, 255, 1);
   border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
@@ -141,6 +141,8 @@
   height: 100%;
   position: absolute;
   right: 0;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .bar > .gauge-semi-circle::before {
@@ -203,7 +205,8 @@
   position: relative;
   display: block;
   width: 6rem;
-  height: 3rem;
+  height: 100%;
+  min-height: 3rem;
   background: linear-gradient(to right, #c0392b 0%, #f1c40f 50%, #1abc9c 100%);
   border-radius: 50% 50% 50% 50% / 100% 100% 0 0;
 }

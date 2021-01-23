@@ -40,14 +40,21 @@ Contribution welcome.
     refreshIntervalInSeconds: 60, // Default: 60
     width: "340px",
     displayRoomIcons: false, // Default: false
-    displayThermostats: false, // Default: false
     hideComponents: {}, // See example below. Default: {}
     airquality: {
-      purity: "bar", // one of [tile, bar, donut, none]. Default: bar
-      humidity: "bar", // one of [tile, bar, donut, none]. Default: bar
-      temperature: "bar", // one of [tile, bar, donut, none]. Default: bar
-      preferredTemperatureProvider: "Twinguard", // Twinguard or ClimateControl. Default: Twinguard, but falls back to CC
-      preferredHumidityProvider: "Twinguard" // Twinguard or ClimateControl. Default: Twinguard, but falls back to CC
+      purity: "bar", // one of [tile, bar, donut, none]
+      humidity: "bar", // one of [tile, bar, donut, none]
+      temperature: "bar", // one of [tile, bar, donut, none]
+      preferredTemperatureProvider: "Twinguard", // Twinguard or ClimateControl
+      preferredHumidityProvider: "Twinguard" // Twinguard or ClimateControl
+    },
+    temperatureLevel: {
+      displayCurrentTemperature: true, // Default: true
+      displayTargetTemperature: true // Default: true
+    },
+    thermostats: {
+      display: false, // Default: true
+      displayName: false // Default: false
     }
   }
 }
@@ -58,7 +65,8 @@ config: {
   hideComponents: {
     "Livingroom": ["temperature", "purity", "humidity"],
     "Bed Room": ["battery", "climateControl", "temperatureLevel", "hue"],
-    "Kitchen": ["shutters", "dishwasher", "thermostats"]
+    "Kitchen": ["shutters", "dishwasher", "thermostats"],
+    "Dungeon": ["room"] // hides entire room
     }
 }
 ```

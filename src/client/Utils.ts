@@ -126,6 +126,7 @@ export default class BSHUtils {
     const services: {
       temperatureLevelService: TemperatureLevelService;
       valveTappetService: ValveTappetService;
+      name: string;
     }[] = [];
 
     temperatureLevelDevices.forEach((temperatureLevelDevice) => {
@@ -136,9 +137,13 @@ export default class BSHUtils {
       const valveTappetService = temperatureLevelDevice.services.find(
         (service) => service.id === "ValveTappet"
       );
-      services.push({ temperatureLevelService, valveTappetService });
+      services.push({
+        temperatureLevelService,
+        valveTappetService,
+        name: temperatureLevelDevice.name
+      });
     });
-
+    console.log(services);
     return services;
   }
 

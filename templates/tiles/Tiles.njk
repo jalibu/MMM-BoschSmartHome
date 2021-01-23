@@ -1,11 +1,11 @@
-{% import "templates/tiles/Temperature.njk" as temperature with context %}
+{% import "templates/tiles/TemperatureLevel.njk" as temperatureLevel with context %}
 {% import "templates/tiles/Thermostats.njk" as thermostats with context %}
 {% import "templates/tiles/AirQuality.njk" as airquality with context %}
 {% import "templates/tiles/Dishwasher.njk" as dishwasher with context %}
 
 {% macro render(room) %}
   <div class="bsh-tiles">
-    {{ temperature.render(room) }}
+    {{ temperatureLevel.render(room) }}
     {{ airquality.render(room) }}
     {{ thermostats.render(room) }}
     {{ dishwasher.render(room) }}

@@ -13,7 +13,6 @@ Module.register("MMM-BoschSmartHome", {
     width: "340px",
     refreshIntervalInSeconds: 60,
     displayRoomIcons: false,
-    displayThermostats: false,
     hideComponents: {}, // see README.md
     airquality: {
       purity: "bar", // one of [tile, bar, donut, none]
@@ -21,6 +20,14 @@ Module.register("MMM-BoschSmartHome", {
       temperature: "bar", // one of [tile, bar, donut, none]
       preferredTemperatureProvider: "Twinguard", // Twinguard or ClimateControl
       preferredHumidityProvider: "Twinguard" // Twinguard or ClimateControl
+    },
+    temperatureLevel: {
+      displayCurrentTemperature: true,
+      displayTargetTemperature: true
+    },
+    thermostats: {
+      display: true,
+      displayName: false
     }
   } as Config,
 

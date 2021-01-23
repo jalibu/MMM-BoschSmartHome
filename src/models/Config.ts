@@ -10,11 +10,22 @@ export type Config = {
   hideComponents: any;
   refreshIntervalInSeconds: number;
   displayRoomIcons: boolean;
-  displayThermostats: boolean;
-  airquality: Airquality;
+  temperatureLevel: TemperatureLevelConfig;
+  airquality: AirqualityConfig;
+  thermostats: ThermostatsConfig;
 };
 
-type Airquality = {
+type TemperatureLevelConfig = {
+  displayCurrentTemperature: boolean;
+  displayTargetTemperature: boolean;
+};
+
+type ThermostatsConfig = {
+  display: boolean;
+  displayName: boolean;
+};
+
+type AirqualityConfig = {
   purity: string;
   humidity: string;
   temperature: string;
