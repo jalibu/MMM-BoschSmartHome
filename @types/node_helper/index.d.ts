@@ -1,3 +1,6 @@
+/**
+ * @author https://github.com/dolanmiu
+ */
 declare module "node_helper" {
   export function create(object: {
     start(): void;

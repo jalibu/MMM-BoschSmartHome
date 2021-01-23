@@ -13,7 +13,7 @@ export interface BinarySwitchService extends Service {
 }
 
 export interface ShutterContactService extends Service {
-  state?: any;
+  state?: { value: string };
 }
 
 export interface TemperatureLevelService extends Service {
@@ -24,5 +24,5 @@ export interface ValveTappetService extends Service {
 }
 
 export interface AirQualityService extends Service {
-  state?: any;
+  state?: { purity: number; comfortZone: { maxPurity: number } };
 }

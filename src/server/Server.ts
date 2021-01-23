@@ -2,8 +2,8 @@ import * as NodeHelper from "node_helper";
 import { Config } from "../models/Config";
 import { Device } from "../models/Device";
 import { Service } from "../models/Service";
-const fs = require("fs");
-const BSMB = require("bosch-smart-home-bridge");
+import * as fs from "fs";
+import * as BSMB from "bosch-smart-home-bridge";
 
 module.exports = NodeHelper.create({
   cert: null,
@@ -89,7 +89,9 @@ module.exports = NodeHelper.create({
   async socketNotificationReceived(notification, config) {
     if (notification === "GET_STATUS") {
       if (config.mocked) {
-        const data = fs.readFileSync(__dirname + "/debugResponse.json");
+        const data = fs
+          .readFileSync(__dirname + "/debugResponse.json")
+          .toString();
         this.rooms = JSON.parse(data);
       } else {
         await this.establishConnection(config);

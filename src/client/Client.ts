@@ -41,7 +41,7 @@ Module.register("MMM-BoschSmartHome", {
   },
 
   getStyles() {
-    return ["font-awesome.css", "MMM-BoschSmartHome.css", "Charts.css"];
+    return ["font-awesome.css", "MMM-BoschSmartHome.css"];
   },
 
   getTranslations() {

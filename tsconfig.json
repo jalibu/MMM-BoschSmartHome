@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "noUnusedLocals": false
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "noUnusedLocals": true
   }
 }
