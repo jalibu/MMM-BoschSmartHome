@@ -1,4 +1,4 @@
-{% macro render(room, config, utils) %}
+{% macro render(room) %}
   {% set airQualityService = utils.getAirQualityService(room.devices) %}
   {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
   {% if airQualityService %}
@@ -34,6 +34,8 @@
     {% else %}
       {% set temperatureRating = "GOOD" %}
     {% endif %}
+  {% else %}
+    {% set temperature = null %}
   {% endif %}
   {% if temperature %}
     {% if config.airquality.temperature === "donut" or config.airquality.temperature === "bar" %}

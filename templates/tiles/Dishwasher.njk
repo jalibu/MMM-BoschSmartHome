@@ -1,4 +1,4 @@
-{% macro render(room, config, utils) %}
+{% macro render(room) %}
   {% set dishwasherService = utils.getDishWasherService(room.devices) %}
 
   {% if dishwasherService %}

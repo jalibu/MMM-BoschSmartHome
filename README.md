@@ -1,19 +1,21 @@
 # MMM-BoschSmartHome (Beta)
 A client interface for the Bosch Smart Home System [Magic Mirror](https://magicmirror.builders/).
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/).
-This module is a private and inofficial project without any relation to Robert Bosch Smart Home GmbH. I neither assume liability for damages or give any warranty.
+**Note**: This module is a private and inofficial project without any relation to *Robert Bosch Smart Home GmbH*. I do not give any warranty, nor am I responsible for any damage.
+
+Contribution welcome.
 
 
 ## Features
 - Support for multiple rooms
-- Shutter Contacts
+- Door-/ Window Contacts
 - Room Climate Controls
 - Thermostats
 - Twinguards
 - Visualization of Temperature, Humidity and Purity
-- Bosch Home Connect Dishwashers (experimental!)
+- Bosch Home Connect Dishwashers *(experimental!)*
 - Philips Hue Bridge
-- Languages: English, German
+- Languages: English, German *(feel free to contribute)*
 
 ## Installing the Module
 1) Navigate to the MagicMirror subfolder "modules" and execute the following command
@@ -50,3 +52,8 @@ This module is a private and inofficial project without any relation to Robert B
 }
 ```
 5) Important: When the module is started for the first time, a pairing between the MagicMirror and the Bosch Smart Home Bridge is automatically created with the generated certificate. For this to work, you must press the pairing button on the bridge for 5 seconds until it starts flashing. Then startup MagicMirror. This only has to be done once.
+
+### Thanks to
+- all testers and supporters.
+- [dolanmiu](https://github.com/dolanmiu/MMM-awesome-alexa) for your hints for using TypeScript within MMM modules.
+- [holomekc](https://github.com/holomekc/bosch-smart-home-bridge) for your amazing BSHB connector, which is a basic component of this module.

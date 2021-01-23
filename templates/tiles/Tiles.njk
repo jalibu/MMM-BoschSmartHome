@@ -1,13 +1,13 @@
-{% import "templates/tiles/Temperature.njk" as temperature %}
-{% import "templates/tiles/Thermostats.njk" as thermostats %}
-{% import "templates/tiles/AirQuality.njk" as airquality %}
-{% import "templates/tiles/Dishwasher.njk" as dishwasher %}
+{% import "templates/tiles/Temperature.njk" as temperature with context %}
+{% import "templates/tiles/Thermostats.njk" as thermostats with context %}
+{% import "templates/tiles/AirQuality.njk" as airquality with context %}
+{% import "templates/tiles/Dishwasher.njk" as dishwasher with context %}
 
-{% macro render(room, config, utils) %}
+{% macro render(room) %}
   <div class="bsh-tiles">
-    {{ temperature.render(room, config, utils) }}
-    {{ airquality.render(room, config, utils) }}
-    {{ thermostats.render(room, config, utils) }}
-    {{ dishwasher.render(room, config, utils) }}
+    {{ temperature.render(room) }}
+    {{ airquality.render(room) }}
+    {{ thermostats.render(room) }}
+    {{ dishwasher.render(room) }}
   </div>
 {% endmacro %}

@@ -1,9 +1,9 @@
-{% import "templates/badges/Shutter.njk" as shutterBadge %}
-{% import "templates/badges/_Badge.njk" as badge %}
+{% import "templates/badges/Shutter.njk" as shutterBadge with context %}
+{% import "templates/badges/_Badge.njk" as badge with context %}
 
-{% macro render(room, utils) %}
+{% macro render(room) %}
   <span class="bsh-icon-badges">
-    {{ shutterBadge.render(room, utils) }}
+    {{ shutterBadge.render(room) }}
 
     {% set hueDevices = utils.getSwitchedOnHueDevices(room.devices) %}
     {% if hueDevices.length > 0 %}
