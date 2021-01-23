@@ -91,6 +91,7 @@
 .bsh-tile.airquality {
   padding-left: 3px;
   padding-right: 3px;
+  color: #000;
 }
 
 .bsh-tile.airquality.GOOD {
