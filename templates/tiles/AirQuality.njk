@@ -11,7 +11,6 @@
           <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartPurityPercentage(airQualityService) * 1.8 }}deg);"></div>
           <div class="gauge-data">
             <div class="gauge-percent"><i class="fas fa-leaf"></i>{{ airQualityService.state.purity.toFixed(0) }}ppm</div>
-            <div class="gauge-label"></div>
           </div>
         </div>
       {% elif config.airquality.purity === "tile" %}
@@ -47,10 +46,10 @@
           <div class="gauge-semi-circle temperature">
             <div class="gauge-semi-circle-bar--mask" style="width: {{ 100 - utils.getChartTemperaturePercentage(temperature, temperatureProfile) }}%;"></div>
           </div>
+
           <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartTemperaturePercentage(temperature, temperatureProfile) * 1.8 }}deg);"></div>
           <div class="gauge-data">
             <div class="gauge-percent"><i class="fas fa-thermometer"></i>{{ temperature }}°C</div>
-            <div class="gauge-label"></div>
           </div>
         </div>
       {% elif config.airquality.temperature === "tile" %}
@@ -84,7 +83,6 @@
           <div class="gauge-semi-circle--mask" style="transform: rotate({{ utils.getChartHumidityPercentage(humidity) * 1.8 }}deg);"></div>
           <div class="gauge-data">
             <div class="gauge-percent"><i class="fas fa-tint"></i>{{ humidity }}%</div>
-            <div class="gauge-label"></div>
           </div>
         </div>
       {% elif config.airquality.humidity === "tile" %}
