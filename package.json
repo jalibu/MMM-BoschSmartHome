@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/jalibu/MMM-BoschSmartHome#readme",
   "dependencies": {
-    "bosch-smart-home-bridge": "^0.2.14"
+    "bosch-smart-home-bridge": "^0.2.15"
   },
   "scripts": {
     "build": "webpack --mode production",
