@@ -38,6 +38,10 @@
   color: #fff;
   background-color: #4682b4;
 }
+.bsh-badge.climate-control.bsh-off {
+  color: #000;
+  background-color: #ccc;
+}
 .bsh-badge.climate-control.bsh-comfort {
   color: #fff;
   background-color: #dc4c4c;

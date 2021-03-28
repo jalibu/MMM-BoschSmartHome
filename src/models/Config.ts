@@ -18,6 +18,7 @@ export type Config = {
 type TemperatureLevelConfig = {
   displayCurrentTemperature: boolean;
   displayTargetTemperature: boolean;
+  forceRowTile: boolean;
 };
 
 type ThermostatsConfig = {

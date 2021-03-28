@@ -23,7 +23,8 @@ Module.register("MMM-BoschSmartHome", {
     },
     temperatureLevel: {
       displayCurrentTemperature: true,
-      displayTargetTemperature: true
+      displayTargetTemperature: true,
+      forceRowTile: true
     },
     thermostats: {
       display: true,

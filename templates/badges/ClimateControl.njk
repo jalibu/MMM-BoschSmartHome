@@ -23,13 +23,13 @@
           {% set operationText %}
             {{ "OP_MODE_LOW" | translate | safe }}
           {% endset %}
-        {% elif climateControlService.state.summermode %}
-          {% set icon = '<i class="fas fa-user-cog"></i>' %}
-          {% set operationMode = "bsh-manual" %}
+        {% elif climateControlService.state.summerMode %}
+          {% set icon = '<i class="fas fa-power-off"></i>' %}
+          {% set operationMode = "bsh-off" %}
           {% set operationText %}
             {{ "OP_MODE_SUMMER" | translate | safe }}
           {% endset %}
-        {% elif climateControlService.state.boostmode %}
+        {% elif climateControlService.state.boostMode %}
           {% set icon = '<i class="fas fa-arrow-down"></i>' %}
           {% set operationMode = "bsh-comfort" %}
           {% set operationText %}

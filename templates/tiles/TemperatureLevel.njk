@@ -3,7 +3,7 @@
     {% set climateControlService = utils.getClimateControlService(room.devices) %}
     {% set temperatureLevelService = utils.getTemperatureLevelService(room.devices) %}
     {% if climateControlService and temperatureLevelService %}
-    {% if config.temperatureLevel.displayCurrentTemperature and config.temperatureLevel.displayTargetTemperature%}
+    {% if (config.temperatureLevel.displayCurrentTemperature and config.temperatureLevel.displayTargetTemperature and not climateControlService.state.summerMode) or (config.temperatureLevel.forceRowTile) %}
       {% set tileStyle = "tile-row" %}
     {% else %}
       {% set tileStyle = "" %}
@@ -15,7 +15,7 @@
             {{ "TEMPERATURE_IS" | translate | safe}} <span class="room-temperature"> {{ temperatureLevelService.state.temperature }}°C</span>
           </div>
         {% endif %}
-        {% if config.temperatureLevel.displayTargetTemperature %}
+        {% if config.temperatureLevel.displayTargetTemperature and not climateControlService.state.summerMode %}
         <div>
           {{ "TEMPERATURE_TARGET" | translate | safe }} <span class="setpoint-temperature">{{ climateControlService.state.setpointTemperature }}°C {{ icon | safe}}</span>
         </div>

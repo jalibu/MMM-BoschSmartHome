@@ -54,7 +54,8 @@ Contribution welcome.
     },
     temperatureLevel: {
       displayCurrentTemperature: true, // Default: true
-      displayTargetTemperature: true // Default: true
+      displayTargetTemperature: true, // Default: true
+      forceRowTile: true // Show tile as row, even if there is no target temperature. Default: true
     },
     thermostats: {
       display: false, // Default: true
