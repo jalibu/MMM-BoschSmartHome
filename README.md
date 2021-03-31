@@ -1,4 +1,4 @@
-# MMM-BoschSmartHome (Beta)
+# MMM-BoschSmartHome
 [![dependencies Status](https://status.david-dm.org/gh/jalibu/MMM-BoschSmartHome.svg)](https://david-dm.org/jalibu/MMM-BoschSmartHome)  [![Known Vulnerabilities](https://snyk.io/test/github/jalibu/MMM-BoschSmartHome/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jalibu/MMM-BoschSmartHome?targetFile=package.json)  
 
 A client interface for the Bosch Smart Home System on the [Magic Mirror](https://magicmirror.builders/) platform.
