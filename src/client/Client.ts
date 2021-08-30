@@ -61,10 +61,6 @@ Module.register("MMM-BoschSmartHome", {
   },
 
   start() {
-    // Override defaults
-    this.nunjucksEnvironment().loaders[0].async = false;
-    this.nunjucksEnvironment().loaders[0].useCache = true;
-
     this.rooms = [];
     this.error = null;
     this.loadData();

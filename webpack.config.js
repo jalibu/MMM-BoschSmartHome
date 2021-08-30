@@ -23,7 +23,7 @@ const serverConfig = {
       {
         test: /\.ts$/,
         include: [path.resolve(__dirname, "src/server")],
-        loader: "awesome-typescript-loader"
+        loader: "ts-loader"
       }
     ]
   }
@@ -44,7 +44,7 @@ const clientConfig = {
       {
         test: /\.ts$/,
         include: [path.resolve(__dirname, "src/client")],
-        loader: "awesome-typescript-loader"
+        loader: "ts-loader"
       }
     ]
   }

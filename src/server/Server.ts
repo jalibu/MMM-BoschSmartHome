@@ -54,9 +54,9 @@ module.exports = NodeHelper.create({
   async loadData() {
     try {
       if (!this.rooms) {
-        const {
-          parsedResponse: rooms
-        } = await this.client.getRooms().toPromise();
+        const { parsedResponse: rooms } = await this.client
+          .getRooms()
+          .toPromise();
         this.rooms = rooms;
       }
 

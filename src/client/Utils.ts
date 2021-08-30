@@ -69,9 +69,10 @@ export default class BSHUtils {
     );
     let openShutters: string[] = [];
     shutterContactDevices.forEach((shutterContactDevice) => {
-      const shutterContactService: ShutterContactService = shutterContactDevice.services.find(
-        (service) => service.id === "ShutterContact"
-      );
+      const shutterContactService: ShutterContactService =
+        shutterContactDevice.services.find(
+          (service) => service.id === "ShutterContact"
+        );
       if (
         shutterContactService.state.value !== "CLOSED" &&
         openShutters.indexOf(shutterContactDevice.profile) <= 0
@@ -130,9 +131,10 @@ export default class BSHUtils {
     }[] = [];
 
     temperatureLevelDevices.forEach((temperatureLevelDevice) => {
-      const temperatureLevelService: TemperatureLevelService = temperatureLevelDevice.services.find(
-        (service) => service.id === "TemperatureLevel"
-      );
+      const temperatureLevelService: TemperatureLevelService =
+        temperatureLevelDevice.services.find(
+          (service) => service.id === "TemperatureLevel"
+        );
 
       const valveTappetService = temperatureLevelDevice.services.find(
         (service) => service.id === "ValveTappet"
