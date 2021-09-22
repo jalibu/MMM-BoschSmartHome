@@ -1,4 +1,5 @@
 import { Service } from './Service'
+
 export type Device = {
   id: string
   roomId: string

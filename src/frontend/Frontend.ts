@@ -69,9 +69,8 @@ Module.register('MMM-BoschSmartHome', {
   },
 
   scheduleUpdate() {
-    const self = this
     setInterval(() => {
-      self.loadData()
+      this.loadData()
     }, this.config.refreshIntervalInSeconds * 1000)
   },
 

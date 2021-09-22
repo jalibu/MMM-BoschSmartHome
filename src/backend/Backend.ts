@@ -1,9 +1,9 @@
 import * as NodeHelper from 'node_helper'
+import * as fs from 'fs'
+import * as BSMB from 'bosch-smart-home-bridge'
 import { Config } from '../types/Config'
 import { Device } from '../types/Device'
 import { Service } from '../types/Service'
-import * as fs from 'fs'
-import * as BSMB from 'bosch-smart-home-bridge'
 
 module.exports = NodeHelper.create({
   cert: null,
@@ -80,14 +80,14 @@ module.exports = NodeHelper.create({
   async socketNotificationReceived(notification, config) {
     if (notification === 'GET_STATUS') {
       if (config.mocked) {
-        const data = fs.readFileSync(__dirname + '/debugResponse.json').toString()
+        const data = fs.readFileSync(`${__dirname}/debugResponse.json`).toString()
         this.rooms = JSON.parse(data)
       } else {
         await this.establishConnection(config)
         await this.loadData()
 
         if (config.debug) {
-          fs.writeFileSync(__dirname + '/debugResponse.json', JSON.stringify(this.rooms))
+          fs.writeFileSync(`${__dirname}/debugResponse.json`, JSON.stringify(this.rooms))
         }
       }
       this.sendSocketNotification('STATUS_RESULT', this.rooms)

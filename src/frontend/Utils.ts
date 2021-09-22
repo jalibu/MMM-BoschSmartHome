@@ -1,6 +1,7 @@
 import { Device, ShutterContactDevice } from '../types/Device'
 import { Config } from '../types/Config'
 import { Room } from '../types/Room'
+
 import {
   BatteryLevelService,
   BinarySwitchService,
@@ -8,7 +9,8 @@ import {
   TemperatureLevelService,
   AirQualityService,
   ValveTappetService,
-  ComfortZone
+  ComfortZone,
+  Service
 } from '../types/Service'
 
 export default class BSHUtils {
@@ -44,7 +46,7 @@ export default class BSHUtils {
 
   static getSwitchedOnHueDevices(devices: Device[]) {
     const hueLights = devices.filter((device) => device.deviceModel === 'HUE_LIGHT')
-    let switchedOnDevices: string[] = []
+    const switchedOnDevices: string[] = []
     hueLights.forEach((hueLight) => {
       const binarySwitchService: BinarySwitchService = hueLight.services.find(
         (service) => service.id === 'BinarySwitch'
@@ -58,7 +60,7 @@ export default class BSHUtils {
 
   static getOpenShutters(devices: Device[]) {
     const shutterContactDevices: ShutterContactDevice[] = devices.filter((device) => device.deviceModel === 'SWD')
-    let openShutters: string[] = []
+    const openShutters: string[] = []
     shutterContactDevices.forEach((shutterContactDevice) => {
       const shutterContactService: ShutterContactService = shutterContactDevice.services.find(
         (service) => service.id === 'ShutterContact'
@@ -71,31 +73,31 @@ export default class BSHUtils {
     return openShutters
   }
 
-  static getClimateControlService(devices: Device[]) {
+  static getClimateControlService(devices: Device[]): Service {
     const climateControlDevice = devices.find((device) => device.deviceModel === 'ROOM_CLIMATE_CONTROL')
-    if (!climateControlDevice) return
+    if (!climateControlDevice) return null
 
     return climateControlDevice.services.find((service) => service.id === 'RoomClimateControl')
   }
 
-  static getTemperatureLevelService(devices: Device[]) {
+  static getTemperatureLevelService(devices: Device[]): Service {
     const climateControlDevice = devices.find((device) => device.deviceModel === 'ROOM_CLIMATE_CONTROL')
-    if (!climateControlDevice) return
+    if (!climateControlDevice) return null
 
     return climateControlDevice.services.find((service) => service.id === 'TemperatureLevel')
   }
 
-  static getAirQualityService(devices: Device[]) {
+  static getAirQualityService(devices: Device[]): Service {
     const twinguardDevice = devices.find((device) => device.deviceModel === 'TWINGUARD')
-    if (!twinguardDevice) return ''
+    if (!twinguardDevice) return null
 
     return twinguardDevice.services.find((service) => service.id === 'AirQualityLevel')
   }
 
   static getThermostatServices(devices: Device[]) {
-    let temperatureLevelDevices = devices.filter((device) => device.deviceModel === 'TRV')
+    const temperatureLevelDevices = devices.filter((device) => device.deviceModel === 'TRV')
 
-    if (!temperatureLevelDevices) return
+    if (!temperatureLevelDevices) return null
 
     const services: {
       temperatureLevelService: TemperatureLevelService
@@ -115,33 +117,33 @@ export default class BSHUtils {
         name: temperatureLevelDevice.name
       })
     })
-    console.log(services)
+
     return services
   }
 
-  static getDishWasherService(devices: Device[]) {
-    let dishwasherDevice = devices.find((device) => device.deviceModel === 'HOMECONNECT_DISHWASHER')
+  static getDishWasherService(devices: Device[]): Service {
+    const dishwasherDevice = devices.find((device) => device.deviceModel === 'HOMECONNECT_DISHWASHER')
 
-    if (!dishwasherDevice) return
+    if (!dishwasherDevice) return null
 
-    const service = dishwasherDevice.services.find((service) => service.id === 'HCDishwasher')
+    const service = dishwasherDevice.services.find((deviceService) => deviceService.id === 'HCDishwasher')
 
     service.deviceName = dishwasherDevice.name
 
     return service
   }
 
-  static getChartHumidityPercentage(humidity: number) {
+  static getChartHumidityPercentage(humidity: number): number {
     return humidity > 100 ? 100 : humidity
   }
 
-  static getChartPurityPercentage(airQualityService: AirQualityService) {
+  static getChartPurityPercentage(airQualityService: AirQualityService): number {
     const result = (airQualityService.state.purity / airQualityService.state.comfortZone.maxPurity) * 50
 
     return result > 100 ? 100 : result
   }
 
-  static getChartTemperaturePercentage(temperature: number, profile: ComfortZone) {
+  static getChartTemperaturePercentage(temperature: number, profile: ComfortZone): number {
     if (!profile || !temperature) return null
 
     const perfectTemp = profile.maxTemperature - (profile.maxTemperature - profile.minTemperature)
