@@ -10,11 +10,12 @@ import {
   AirQualityService,
   ValveTappetService,
   ComfortZone,
-  Service
+  Service,
+  ThermostatServices
 } from '../types/Service'
 
 export default class BSHUtils {
-  static getRoomIcon(iconId: string) {
+  static getRoomIcon(iconId: string): string {
     switch (iconId) {
       case 'icon_room_bathroom':
         return 'fa-bath'
@@ -31,7 +32,7 @@ export default class BSHUtils {
     }
   }
 
-  static getLowBatteryDevices(devices: Device[]) {
+  static getLowBatteryDevices(devices: Device[]): Device[] {
     const response = []
 
     for (const device of devices) {
@@ -41,10 +42,11 @@ export default class BSHUtils {
         response.push(device.name)
       }
     }
+
     return response
   }
 
-  static getSwitchedOnHueDevices(devices: Device[]) {
+  static getSwitchedOnHueDevices(devices: Device[]): string[] {
     const hueLights = devices.filter((device) => device.deviceModel === 'HUE_LIGHT')
     const switchedOnDevices: string[] = []
     hueLights.forEach((hueLight) => {
@@ -55,10 +57,11 @@ export default class BSHUtils {
         switchedOnDevices.push(hueLight.name)
       }
     })
+
     return switchedOnDevices
   }
 
-  static getOpenShutters(devices: Device[]) {
+  static getOpenShutters(devices: Device[]): string[] {
     const shutterContactDevices: ShutterContactDevice[] = devices.filter((device) => device.deviceModel === 'SWD')
     const openShutters: string[] = []
     shutterContactDevices.forEach((shutterContactDevice) => {
@@ -94,7 +97,7 @@ export default class BSHUtils {
     return twinguardDevice.services.find((service) => service.id === 'AirQualityLevel')
   }
 
-  static getThermostatServices(devices: Device[]) {
+  static getThermostatServices(devices: Device[]): ThermostatServices[] {
     const temperatureLevelDevices = devices.filter((device) => device.deviceModel === 'TRV')
 
     if (!temperatureLevelDevices) return null

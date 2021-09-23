@@ -1,7 +1,8 @@
+import * as Log from 'logger'
 import Utils from './Utils'
 import { Config } from '../types/Config'
 
-Module.register('MMM-BoschSmartHome', {
+Module.register<Config>('MMM-BoschSmartHome', {
   defaults: {
     mocked: false,
     debug: false,
@@ -30,7 +31,7 @@ Module.register('MMM-BoschSmartHome', {
       display: true,
       displayName: false
     }
-  } as Config,
+  },
 
   getStyles() {
     return ['font-awesome.css', 'MMM-BoschSmartHome.css']
@@ -63,30 +64,21 @@ Module.register('MMM-BoschSmartHome', {
   start() {
     this.rooms = []
     this.error = null
-    this.loadData()
-    this.scheduleUpdate()
+
+    this.sendSocketNotification('BSH_CONFIG_REQUEST', this.config)
     this.updateDom()
   },
 
-  scheduleUpdate() {
-    setInterval(() => {
-      this.loadData()
-    }, this.config.refreshIntervalInSeconds * 1000)
-  },
-
-  loadData() {
-    this.sendSocketNotification('GET_STATUS', this.config)
-  },
-
-  socketNotificationReceived(notificationIdentifier: string, payload: any) {
-    if (notificationIdentifier === 'STATUS_RESULT') {
+  socketNotificationReceived(notificationIdentifier: string, payload: unknown) {
+    if (notificationIdentifier === 'BSH_ROOMS_RESPONSE') {
       this.error = null
       this.rooms = payload
       this.updateDom()
 
-      console.debug('Bosch Smart Home Rooms', this.rooms)
-    } else if (notificationIdentifier === 'ERROR') {
+      Log.log('BSH Rooms', this.rooms)
+    } else if (notificationIdentifier === 'BSH_ERROR_RESPONSE') {
       this.error = payload
+      console.log(this.error)
       this.updateDom()
     }
   }
