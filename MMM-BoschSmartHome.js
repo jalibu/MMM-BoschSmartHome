@@ -1,6 +1,6 @@
 /*! *****************************************************************************
   mmm-bosch-smart-home
-  Version 1.1.1
+  Version 1.2.0
 
   A client interface for the Bosch Smart Home System on the MagicMirror² platform.
   Please submit bugs at https://github.com/jalibu/MMM-BoschSmartHome/issues

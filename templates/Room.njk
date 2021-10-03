@@ -12,9 +12,11 @@
           </span>
         {% endif %}
         <span class="bsh-title-left">
-          <span class="bsh-room-name">
-            {{room.name}}
-          </span>
+          {% if not utils.isHidden(room, "name", config) %}
+            <span class="bsh-room-name">
+              {{room.name}}
+            </span>
+          {% endif %}
           {{ climateControlBadge.render(room, utils) }}
         </span>
         <span class="bsh-badges bsh-title-right">
