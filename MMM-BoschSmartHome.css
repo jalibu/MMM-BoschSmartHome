@@ -16,6 +16,10 @@
   margin-bottom: 4px;
   align-items: center;
 }
+.bsh-error {
+  font-size: 0.5em;
+  color: red;
+}
 .bsh-title-left {
   flex-grow: 4;
 }
@@ -126,7 +130,7 @@
 }
 
 .gauge-semi-circle::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 13%;
@@ -181,7 +185,7 @@
 }
 
 .gauge-semi-circle--mask::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -215,14 +219,7 @@
 }
 
 .gauge-semi-circle.humidity {
-  background: linear-gradient(
-    to right,
-    #c0392b 0%,
-    #f1c40f 15%,
-    #1abc9c 50%,
-    #f1c40f 85%,
-    #c0392b 100%
-  );
+  background: linear-gradient(to right, #c0392b 0%, #f1c40f 15%, #1abc9c 50%, #f1c40f 85%, #c0392b 100%);
 }
 
 .gauge-semi-circle.temperature {

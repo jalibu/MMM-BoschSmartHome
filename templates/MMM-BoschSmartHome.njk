@@ -1,13 +1,19 @@
 {% import "templates/Room.njk" as roomTemplate with context %}
 
-{% if rooms and rooms.length > 0%}
-<div class="normal medium bsh-wrapper" style="max-width: {{config.width}};">
-  {% for room in rooms %}
-    {{ roomTemplate.render(room)}}
-  {% endfor %}
-</div>
+{% if error %}
+   <div class="dimmed light small bsh-error bsh-error-{{ error.type }}">
+      {{ error.message }}
+   </div>
 {% else %}
-  <div class="dimmed light small">
-    {{ "LOADING" | translate | safe }}
+  {% if rooms and rooms.length > 0%}
+  <div class="normal medium bsh-wrapper" style="max-width: {{config.width}};">
+    {% for room in rooms %}
+      {{ roomTemplate.render(room)}}
+    {% endfor %}
   </div>
+  {% else %}
+    <div class="dimmed light small">
+      {{ "LOADING" | translate | safe }}
+    </div>
+  {% endif %}
 {% endif %}

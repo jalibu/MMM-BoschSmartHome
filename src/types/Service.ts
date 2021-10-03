@@ -27,6 +27,12 @@ export interface AirQualityService extends Service {
   state?: { purity: number; comfortZone: ComfortZone }
 }
 
+export type ThermostatServices = {
+  temperatureLevelService: TemperatureLevelService
+  valveTappetService: ValveTappetService
+  name: string
+}
+
 export type ComfortZone = {
   custom?: boolean
   maxHumidity?: number
