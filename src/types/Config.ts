@@ -1,13 +1,13 @@
 export type Config = {
   mocked: boolean
   debug: boolean
-  header: string
   host: string
   name: string
   identifier: string
   password: string
   width: string
   hideComponents: any
+  roomOrder: string[]
   refreshIntervalInSeconds: number
   displayRoomIcons: boolean
   temperatureLevel: TemperatureLevelConfig

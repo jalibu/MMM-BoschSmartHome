@@ -6,7 +6,6 @@ Module.register<Config>('MMM-BoschSmartHome', {
   defaults: {
     mocked: false,
     debug: false,
-    header: null,
     host: '192.168.0.150',
     name: 'MMM-BoschSmartHome',
     identifier: 'MMM-BoschSmartHome',
@@ -14,6 +13,7 @@ Module.register<Config>('MMM-BoschSmartHome', {
     width: '340px',
     refreshIntervalInSeconds: 60,
     displayRoomIcons: false,
+    roomOrder: [],
     hideComponents: {}, // see README.md
     airquality: {
       purity: 'bar', // one of [tile, bar, donut, none]
@@ -55,10 +55,6 @@ Module.register<Config>('MMM-BoschSmartHome', {
       error: this.error,
       utils: Utils
     }
-  },
-
-  getHeader() {
-    return this.config.header
   },
 
   start() {

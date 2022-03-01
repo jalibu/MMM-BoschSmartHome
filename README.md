@@ -10,9 +10,7 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 Contribution welcome.
 
 ### Support
-If you like this module and want to thank, please rate this repository with a star or buy me a coffee :-)
-
-<a href="https://www.buymeacoffee.com/jalibu" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Beer" style="height: 45px !important;width: 180px !important;" ></a>
+If you like this module and want to thank, please rate this repository with a star or [buy me a coffee](https://paypal.me/jalibu).
 
 ## Features
 
@@ -63,6 +61,7 @@ If you like this module and want to thank, please rate this repository with a st
        width: "340px",
        displayRoomIcons: false, // Default: false
        hideComponents: {}, // See example below. Default: {}
+       roomOrder: [], // Manually set the room order by a list of room names, e.g. ["Livingroom", "Bedroom", "Kitchen"]
        airquality: {
          purity: "bar", // one of [tile, bar, donut, none]
          humidity: "bar", // one of [tile, bar, donut, none]
@@ -86,7 +85,7 @@ If you like this module and want to thank, please rate this repository with a st
    You can hide individual components per room. Check sample for possible values:
 
    ```javascript
-    config: {
+    config: {
       hideComponents: {
         "Livingroom": ["temperature", "purity", "humidity"],
         "Bed Room": ["battery", "climateControl", "temperatureLevel", "hue"],

@@ -57,7 +57,12 @@ export default class BshbClient {
 
       if (!this.rooms) {
         const { parsedResponse: rooms } = await this.client.getRooms().toPromise()
-        this.rooms = rooms
+
+        // Change room order if configured
+        this.rooms = rooms.sort((a: Room, b: Room) => {
+          return this.config.roomOrder.indexOf(a.name) - this.config.roomOrder.indexOf(b.name)
+        })
+
         Log.info('Retrieved rooms from BSHB.')
       }
 
