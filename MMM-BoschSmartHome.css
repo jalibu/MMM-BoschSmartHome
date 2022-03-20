@@ -5,21 +5,23 @@
   color: #111;
 }
 .bsh-room-wrapper {
+  color: #fff;
   background-color: rgba(128, 128, 128, 0.2);
   padding: 0.5em;
   margin-bottom: 0.5em;
 }
 .bsh-room-wrapper.bsh-airquality-GOOD {
+  color: #000;
   background-color: rgba(50, 205, 50, 0.5);
 }
 .bsh-room-wrapper.bsh-airquality-MEDIUM {
+  color: #000;
   background-color: rgba(255, 215, 0, 0.5);
 }
 .bsh-room-wrapper.bsh-airquality-BAD {
   background-color: rgba(255, 0, 0, 0.5);
 }
 .bsh-room-title {
-  color: #fff;
   display: flex;
   overflow: hidden;
   margin-bottom: 4px;
@@ -48,7 +50,6 @@
 }
 
 .bsh-badge.climate-control.bsh-eco {
-  color: #fff;
   background-color: #4682b4;
 }
 .bsh-badge.climate-control.bsh-off {
@@ -56,15 +57,14 @@
   background-color: #ccc;
 }
 .bsh-badge.climate-control.bsh-comfort {
-  color: #fff;
   background-color: #dc4c4c;
 }
 .bsh-badge.climate-control.bsh-manual {
-  color: #fff;
   background-color: #884ea0;
 }
 
 .bsh-tiles {
+  color: #000;
   margin: auto;
   font-size: 0.9em;
   line-height: 1.3em;
