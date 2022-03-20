@@ -9,6 +9,15 @@
   padding: 0.5em;
   margin-bottom: 0.5em;
 }
+.bsh-room-wrapper.bsh-airquality-GOOD {
+  background-color: rgba(50, 205, 50, 0.5);
+}
+.bsh-room-wrapper.bsh-airquality-MEDIUM {
+  background-color: rgba(255, 215, 0, 0.5);
+}
+.bsh-room-wrapper.bsh-airquality-BAD {
+  background-color: rgba(255, 0, 0, 0.5);
+}
 .bsh-room-title {
   color: #fff;
   display: flex;

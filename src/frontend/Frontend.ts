@@ -4,6 +4,7 @@ import { Config } from '../types/Config'
 
 Module.register<Config>('MMM-BoschSmartHome', {
   defaults: {
+    colorizeRoomWithAirQuality: false,
     mocked: false,
     debug: false,
     host: '192.168.0.150',

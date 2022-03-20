@@ -1,6 +1,7 @@
 import * as Log from 'logger'
 import * as BSHB from 'bosch-smart-home-bridge'
 import * as fs from 'fs'
+import { lastValueFrom } from 'rxjs'
 import { Config } from '../types/Config'
 import { Device } from '../types/Device'
 import { Service } from '../types/Service'
@@ -39,7 +40,8 @@ export default class BshbClient {
       .withLogger(this.logger)
       .build()
 
-    await bshb.pairIfNeeded(this.config.name, this.config.identifier, this.config.password).toPromise()
+    await lastValueFrom(bshb.pairIfNeeded(this.config.name, this.config.identifier, this.config.password))
+
     this.client = bshb.getBshcClient()
 
     Log.info('Established connection to BSHB')
@@ -56,7 +58,7 @@ export default class BshbClient {
       }
 
       if (!this.rooms) {
-        const { parsedResponse: rooms } = await this.client.getRooms().toPromise()
+        const { parsedResponse: rooms } = await lastValueFrom(this.client.getRooms())
 
         // Change room order if configured
         this.rooms = rooms.sort((a: Room, b: Room) => {
@@ -70,13 +72,13 @@ export default class BshbClient {
         parsedResponse: devices
       }: {
         parsedResponse: Device[]
-      } = await this.client.getDevices().toPromise()
+      } = await lastValueFrom(this.client.getDevices())
 
       const {
         parsedResponse: services
       }: {
         parsedResponse: Service[]
-      } = await this.client.getDevicesServices().toPromise()
+      } = await lastValueFrom(this.client.getDevicesServices())
 
       for (const device of devices) {
         device.services = services.filter((service) => service.deviceId === device.id)

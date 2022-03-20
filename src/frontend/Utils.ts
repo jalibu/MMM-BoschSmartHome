@@ -90,7 +90,7 @@ export default class BSHUtils {
     return climateControlDevice.services.find((service) => service.id === 'TemperatureLevel')
   }
 
-  static getAirQualityService(devices: Device[]): Service {
+  static getAirQualityService(devices: Device[]): AirQualityService {
     const twinguardDevice = devices.find((device) => device.deviceModel === 'TWINGUARD')
     if (!twinguardDevice) return null
 
@@ -157,5 +157,15 @@ export default class BSHUtils {
 
   static isHidden(room: Room, componentType: string, config: Config): boolean {
     return config.hideComponents[room.name] && config.hideComponents[room.name].indexOf(componentType) >= 0
+  }
+
+  static getRoomAirLevelClass(room: Room, config: Config): string | null {
+    if (config.colorizeRoomWithAirQuality) {
+      const airQualityService = this.getAirQualityService(room.devices)
+
+      return `bsh-airquality-${airQualityService?.state?.combinedRating}`
+    }
+
+    return null
   }
 }

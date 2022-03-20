@@ -1,18 +1,19 @@
 export type Config = {
-  mocked: boolean
-  debug: boolean
-  host: string
-  name: string
-  identifier: string
-  password: string
-  width: string
-  hideComponents: any
-  roomOrder: string[]
-  refreshIntervalInSeconds: number
-  displayRoomIcons: boolean
-  temperatureLevel: TemperatureLevelConfig
   airquality: AirqualityConfig
+  debug: boolean
+  colorizeRoomWithAirQuality: boolean
+  displayRoomIcons: boolean
+  hideComponents: any
+  host: string
+  identifier: string
+  mocked: boolean
+  name: string
+  password: string
+  refreshIntervalInSeconds: number
+  temperatureLevel: TemperatureLevelConfig
   thermostats: ThermostatsConfig
+  roomOrder: string[]
+  width: string
 }
 
 type TemperatureLevelConfig = {
