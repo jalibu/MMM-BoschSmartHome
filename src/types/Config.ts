@@ -3,6 +3,7 @@ export type Config = {
   debug: boolean
   colorizeRoomWithAirQuality: boolean
   displayRoomIcons: boolean
+  hideEmptyRooms: boolean
   hideComponents: any
   host: string
   identifier: string

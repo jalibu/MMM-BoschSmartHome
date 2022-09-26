@@ -4,7 +4,7 @@
 
 {% macro render(room) %}
   {% if not utils.isHidden(room, "room", config) %}
-    <div class='bsh-room-wrapper {{  utils.getRoomAirLevelClass(room, config)  }}'>
+    <div class='bsh-room-wrapper {{  utils.getRoomAirLevelClass(room, config)  }} {% if config.hideEmptyRooms %}hide-if-empty{% endif %}'>
       <div class="bsh-room-title">
         {% if config.displayRoomIcons %}
           <span class="bsh-room-icon">

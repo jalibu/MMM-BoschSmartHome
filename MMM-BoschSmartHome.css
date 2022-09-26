@@ -10,6 +10,11 @@
   padding: 0.5em;
   margin-bottom: 0.5em;
 }
+
+.bsh-room-wrapper.hide-if-empty:not(:has(.bsh-tile)):not(:has(.bsh-badge)) {
+  display: none;
+}
+
 .bsh-room-wrapper.bsh-airquality-GOOD {
   color: #000;
   background-color: rgba(50, 205, 50, 0.5);

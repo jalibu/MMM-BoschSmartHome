@@ -61,6 +61,7 @@ If you like this module and want to thank, please rate this repository with a st
        width: "340px",
        displayRoomIcons: false, // Default: false
        hideComponents: {}, // See example below. Default: {}
+       hideEmptyRooms: false, // Hide rooms, if they have no information to display. Default: false
        colorizeRoomWithAirQuality: false, // Colorizes room tiles in red/orange/green depending on combined air quality. Only works with Twinguard
        roomOrder: [], // Manually set the room order by a list of room names, e.g. ["Livingroom", "Bedroom", "Kitchen"]
        airquality: {

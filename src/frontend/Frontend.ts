@@ -16,6 +16,7 @@ Module.register<Config>('MMM-BoschSmartHome', {
     displayRoomIcons: false,
     roomOrder: [],
     hideComponents: {}, // see README.md
+    hideEmptyRooms: false,
     airquality: {
       purity: 'bar', // one of [tile, bar, donut, none]
       humidity: 'bar', // one of [tile, bar, donut, none]
