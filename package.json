@@ -1,6 +1,6 @@
 {
   "name": "mmm-bosch-smart-home",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A client interface for the Bosch Smart Home System on the MagicMirror² platform.",
   "main": "MMM-BoschSmartHome.js",
   "repository": {
