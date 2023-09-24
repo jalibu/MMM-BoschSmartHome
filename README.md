@@ -26,10 +26,11 @@ If you like this module and want to thank, please rate this repository with a st
 
 ## Installing the Module
 
-1. Navigate to the `MagicMirror/modules` directory and execute the following command
+1. Navigate to the `MagicMirror/modules` directory and execute the following commands
 
    ```sh
    git clone https://github.com/jalibu/MMM-BoschSmartHome.git
+   cd MMM-BoschSmartHome
    ```
 
 2. Install dependencies with the following command
