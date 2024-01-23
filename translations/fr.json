@@ -1,0 +1,9 @@
+{
+  "TEMPERATURE_IS": "Est",
+  "TEMPERATURE_TARGET": "Cible",
+  "OP_MODE_AUTO": "Auto",
+  "OP_MODE_MANUAL": "Manuel",
+  "OP_MODE_BOOST": "Boost",
+  "OP_MODE_SUMMER": "Eteint",
+  "OP_MODE_LOW": "Faible"
+}

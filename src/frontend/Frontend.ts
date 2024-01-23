@@ -42,7 +42,8 @@ Module.register<Config>('MMM-BoschSmartHome', {
   getTranslations() {
     return {
       en: 'translations/en.json',
-      de: 'translations/de.json'
+      de: 'translations/de.json',
+      fr: 'translations/fr.json'
     }
   },
 
