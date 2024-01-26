@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/jalibu/MMM-BoschSmartHome.git"
   },
+  "keywords": [
+    "MagicMirror",
+    "Bosch Smart Home"
+  ],
   "author": "Jan.Litzenburger@gmail.com",
   "license": "MIT",
   "bugs": {
