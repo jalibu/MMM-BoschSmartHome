@@ -3,7 +3,7 @@
 [![version](https://img.shields.io/github/package-json/v/jalibu/MMM-BoschSmartHome)](https://github.com/jalibu/MMM-BoschSmartHome/releases) [![Known Vulnerabilities](https://snyk.io/test/github/jalibu/MMM-BoschSmartHome/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jalibu/MMM-BoschSmartHome?targetFile=package.json)
 
 A client interface for the Bosch Smart Home System on the [MagicMirror²]((https://magicmirror.builders/)) platform.  
-Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/).
+Click here for the MagicMirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/).
 
 **Note**: This module is a private and inofficial project without any relation to _Robert Bosch Smart Home GmbH_. I do not give any warranty, nor am I responsible for any damage.
 
