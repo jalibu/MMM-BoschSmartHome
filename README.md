@@ -9,7 +9,8 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 
 Contribution welcome.
 
-### Support
+## Support
+
 If you like this module and want to thank, please rate this repository with a star or [buy me a coffee](https://paypal.me/jalibu).
 
 ## Features
@@ -23,6 +24,10 @@ If you like this module and want to thank, please rate this repository with a st
 - Bosch Home Connect Dishwashers _(experimental!)_
 - Philips Hue Bridge
 - Languages: English, German _(feel free to contribute)_
+
+## Screenshot
+
+![screenshot](screenshot.png)
 
 ## Installing the Module
 
