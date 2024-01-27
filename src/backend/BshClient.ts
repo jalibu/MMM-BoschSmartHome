@@ -25,6 +25,7 @@ export default class BshbClient {
 
     // Override Logger to avoid some annoying logs
     this.logger = new BSHB.DefaultLogger()
+    this.logger.debug = () => {}
     this.logger.fine = () => {}
     this.logger.info = (msg: string) => {
       if (msg.indexOf('Using existing certificate') >= 0 || msg.indexOf('Check if client with identifier') >= 0) {

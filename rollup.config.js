@@ -1,10 +1,9 @@
 import banner2 from 'rollup-plugin-banner2'
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
-
-const pkg = require('./package.json')
+import pkg from './package.json'
 
 const bannerText = `/*! *****************************************************************************
   ${pkg.name}
@@ -38,6 +37,7 @@ export default [
     external: ['node_helper', 'logger', 'bosch-smart-home-bridge', 'fs'],
     plugins: [typescript({ module: 'ESNext' }), nodeResolve(), terser(), banner2(() => bannerText)],
     output: {
+      interop: 'auto',
       file: './node_helper.js',
       format: 'cjs'
     }

@@ -11,7 +11,8 @@ Contribution welcome.
 
 ## Support
 
-If you like this module and want to thank, please rate this repository with a star or [buy me a coffee](https://paypal.me/jalibu).
+I put a lot of time and effort into the creation and maintenance for this module and I'm glad so many people like it.
+If you also like this module and want to thank, please rate this repository with a star or donate a small amount [that is worth it to you](https://paypal.me/jalibu).
 
 ## Features
 
@@ -23,7 +24,7 @@ If you like this module and want to thank, please rate this repository with a st
 - Visualization of Temperature, Humidity and Purity
 - Bosch Home Connect Dishwashers _(experimental!)_
 - Philips Hue Bridge
-- Languages: English, German _(feel free to contribute)_
+- Languages: English, German, French _(feel free to contribute)_
 
 ## Screenshot
 
@@ -41,7 +42,7 @@ If you like this module and want to thank, please rate this repository with a st
 2. Install dependencies with the following command
 
    ```sh
-   npm install --only=production
+   npm install
    ```
 
 3. Generate Certificate
