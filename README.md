@@ -116,7 +116,7 @@ git pull
 npm install
 ```
 
-### Contribution and Development
+## Contribution and Development
 
 This module is written in TypeScript and compiled with Rollup.  
 The source files are located in the `/src` folder.
@@ -128,3 +128,7 @@ Contribution for this module is welcome!
 
 - all testers and supporters.
 - [holomekc](https://github.com/holomekc/bosch-smart-home-bridge) for your amazing BSHB connector, which is a basic component of this module.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
