@@ -120,9 +120,15 @@ npm install
 
 This module is written in TypeScript and compiled with Rollup.  
 The source files are located in the `/src` folder.
-Compile target files with `npm run build`.
 
 Contribution for this module is welcome!
+
+### Developer commands
+
+- `npm run build` - Build target files.
+- `npm run lint` - Run linting and formatter checks.
+- `npm run lint:fix` - Fix linting and formatter issues.
+- `npm run release` - Bump version and build target files for release.
 
 ## Thanks to
 

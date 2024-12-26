@@ -24,10 +24,12 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "bump": "npx bumpp package.json package-lock.json MMM-BoschSmartHome.js node_helper.js --no-push",
     "dev": "rollup -c --sourcemap=inline",
     "dev:watch": "npm run dev -- --watch",
     "lint": "eslint && prettier --check .",
-    "lint:fix": "eslint --fix && prettier --write ."
+    "lint:fix": "eslint --fix && prettier --write .",
+    "release": "npm run lint:fix && npm run build && npm run bump"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
