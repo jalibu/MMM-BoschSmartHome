@@ -5,7 +5,7 @@
 A client interface for the Bosch Smart Home System on the [MagicMirror²](https://magicmirror.builders/) platform.  
 Click here for the MagicMirror [Forum Thread](https://forum.magicmirror.builders/topic/14347/mmm-bsh-bosch-smart-home/).
 
-**Note**: This module is a private and inofficial project without any relation to _Robert Bosch Smart Home GmbH_. I do not give any warranty, nor am I responsible for any damage.
+**Note**: This module is a private and unofficial project without any relation to _Robert Bosch Smart Home GmbH_. I do not give any warranty, nor am I responsible for any damage.
 
 Contribution welcome.
 
@@ -35,7 +35,7 @@ If you also like this module and want to thank, please rate this repository with
 1. Navigate to the `MagicMirror/modules` directory and execute the following commands
 
    ```sh
-   git clone https://github.com/jalibu/MMM-BoschSmartHome.git
+   git clone https://github.com/jalibu/MMM-BoschSmartHome
    cd MMM-BoschSmartHome
    ```
 
@@ -105,6 +105,16 @@ If you also like this module and want to thank, please rate this repository with
    ```
 
 5. **Important**: When the module is started for the first time, a pairing between the MagicMirror and the Bosch Smart Home Bridge is automatically created with the generated certificate. For this to work, you must press the pairing button on the bridge for 5 seconds until it starts flashing. Then startup MagicMirror. This only has to be done once.
+
+## Update
+
+Just enter the module's directory, pull the update and install the dependencies:
+
+```bash
+cd ~/MagicMirror/modules/MMM-BoschSmartHome
+git pull
+npm install
+```
 
 ### Contribution and Development
 
