@@ -1,6 +1,6 @@
 import { Device } from './Device'
 
-export type Room = {
+export interface Room {
   id: string
   name: string
   iconId: string

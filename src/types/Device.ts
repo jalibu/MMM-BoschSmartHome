@@ -1,6 +1,6 @@
 import { Service } from './Service'
 
-export type Device = {
+export interface Device {
   id: string
   roomId: string
   services: Service[]
