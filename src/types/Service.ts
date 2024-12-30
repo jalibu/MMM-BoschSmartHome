@@ -1,4 +1,4 @@
-export type Service = {
+export interface Service {
   id: string
   deviceId: string
   deviceName: string
@@ -27,13 +27,13 @@ export interface AirQualityService extends Service {
   state?: { humidity: number; temperature: number; combinedRating: string; purity: number; comfortZone: ComfortZone }
 }
 
-export type ThermostatServices = {
+export interface ThermostatServices {
   temperatureLevelService: TemperatureLevelService
   valveTappetService: ValveTappetService
   name: string
 }
 
-export type ComfortZone = {
+export interface ComfortZone {
   custom?: boolean
   maxHumidity?: number
   maxPurity?: number

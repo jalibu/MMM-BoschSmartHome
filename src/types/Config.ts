@@ -1,4 +1,4 @@
-export type Config = {
+export interface Config {
   airquality: AirqualityConfig
   debug: boolean
   colorizeRoomWithAirQuality: boolean
@@ -17,18 +17,18 @@ export type Config = {
   width: string
 }
 
-type TemperatureLevelConfig = {
+interface TemperatureLevelConfig {
   displayCurrentTemperature: boolean
   displayTargetTemperature: boolean
   forceRowTile: boolean
 }
 
-type ThermostatsConfig = {
+interface ThermostatsConfig {
   display: boolean
   displayName: boolean
 }
 
-type AirqualityConfig = {
+interface AirqualityConfig {
   purity: string
   humidity: string
   temperature: string

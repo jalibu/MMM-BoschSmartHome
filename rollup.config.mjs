@@ -1,19 +1,20 @@
-import banner2 from 'rollup-plugin-banner2'
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
-import pkg from './package.json'
+import { readFileSync } from 'node:fs'
 
-const bannerText = `/*! *****************************************************************************
+const pkg = JSON.parse(readFileSync('./package.json'))
+
+const banner = `/*! *****************************************************************************
   ${pkg.name}
   Version ${pkg.version}
 
   ${pkg.description}
   Please submit bugs at ${pkg.bugs.url}
 
-  (c) ${pkg.author ? pkg.author : pkg.contributors}
-  Licence: ${pkg.license}
+  © ${pkg.author ? pkg.author : pkg.contributors}
+  License: ${pkg.license}
 
   This file is auto-generated. Do not edit.
 ***************************************************************************** */
@@ -23,8 +24,9 @@ export default [
   {
     input: './src/frontend/Frontend.ts',
     external: ['logger'],
-    plugins: [typescript({ module: 'ESNext' }), nodeResolve(), commonjs(), terser(), banner2(() => bannerText)],
+    plugins: [typescript({ module: 'ESNext' }), nodeResolve(), commonjs(), terser()],
     output: {
+      banner,
       file: './' + pkg.main,
       format: 'iife',
       globals: {
@@ -35,8 +37,9 @@ export default [
   {
     input: './src/backend/Backend.ts',
     external: ['node_helper', 'logger', 'bosch-smart-home-bridge', 'fs'],
-    plugins: [typescript({ module: 'ESNext' }), nodeResolve(), terser(), banner2(() => bannerText)],
+    plugins: [typescript({ module: 'ESNext' }), nodeResolve(), terser()],
     output: {
+      banner,
       interop: 'auto',
       file: './node_helper.js',
       format: 'cjs'
